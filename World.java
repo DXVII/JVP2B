@@ -169,6 +169,14 @@ public class World {
 			spriteTile.render(g);
 		}
 		//draw move count
+<<<<<<< HEAD
+=======
+
+	}
+
+	//method for checking win-condition
+	public boolean checkWin(){
+>>>>>>> 1535901f29b4fbb063022dd4252b39563f2d6c64
 
 	}
 
