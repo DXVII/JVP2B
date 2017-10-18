@@ -1,3 +1,4 @@
+
 import java.io.FileNotFoundException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -169,15 +170,6 @@ public class World {
 			spriteTile.render(g);
 		}
 		//draw move count
-<<<<<<< HEAD
-=======
-
-	}
-
-	//method for checking win-condition
-	public boolean checkWin(){
->>>>>>> 1535901f29b4fbb063022dd4252b39563f2d6c64
-
 	}
 
 	public ArrayList<Sprites> getSpritesAt(Position position){
