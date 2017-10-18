@@ -1,18 +1,15 @@
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 //player is an extension of Sprite
 
 public class Player extends Sprite implements Moveable {
 
-	private static final int STEP = 1;
-    int direction;
-
 	public Player(String image_src, Position postion)
 	throws SlickException {
 		super(image_src, postion);
-        this.direction = World.NORTH;
 	}
 
     public void move(World world, int direction){
@@ -31,7 +28,9 @@ public class Player extends Sprite implements Moveable {
 
 	}
 
-
+public void render(Graphics g){
+	super.render(g)
+}
 
 
 }

@@ -1,4 +1,3 @@
-
 import java.io.FileNotFoundException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -125,23 +124,27 @@ public class World {
 			if(input.iskeyPressed(Input.KEY_UP)) {
 				direction = UP;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 
 			}
 			if(input.iskeyPressed(Input.KEY_DOWN)) {
 				direction = DOWN;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_LEFT)) {
 				direction = LEFT;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_RIGHT)) {
 				direction = RIGHT;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 
 			currPos = player.getPosition();
@@ -159,15 +162,7 @@ public class World {
 				}
 			}
 		}
-
-		if(/*win condition*/) {
-			if(/*World.nLvl < MAXLVL*/){
-				/*World.setLvl(World.getLvl)*/
-			}
-			//change update to new nCurrLvl
-			// check MAXLVL
-			// RESET/CLOSE
-		}
+		App.checkWin(nTargets, nTargetsCov)
 	}
 
 	// render floor then player to enure player is always after
@@ -175,6 +170,8 @@ public class World {
 		for (Sprite sprite : spriteArray) {
 			spriteTile.render(g);
 		}
+		//draw move count
+
 	}
 
 	//method for checking win-condition
