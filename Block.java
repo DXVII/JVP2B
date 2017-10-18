@@ -4,28 +4,18 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public abstract class Block extends Sprite {
-    private Image pic;
-	private boolean togRender;
-    private Position position;
-    private boolean roadBlock;
-
 
     public Block(String image_src, Position position) throws SlickException {
-		this.position = position;
-		this.pic = new Image(image_src);
-        this.togRender = true;
+		super(image_src, postion);
+        this.roadBlock = false;
     }
 
     public void update(Input input, int delta) {
     }
 
-	public void render(Graphics g) {
-        int x = this.position.getX();
-        int x = this.position.getY();
-        float xPix = App.TILE_SIZE*(x-0.5*World.lvlWidth)+App.SCREEN_WIDTH/2;
-        float yPix = App.TILE_SIZE*(y-0.5*World.lvlHeight)+App.SCREEN_HEIGHT/2;
-        pic.draw(this.xPix,this.yPix);
-	}
+    public void render(Graphics g){
+    	super.render(g)
+    }
 
     //unique method, if Block object can move
     public boolean canBlockMove(World world, int direction) {
@@ -39,20 +29,7 @@ public abstract class Block extends Sprite {
             }
         }
         return true;
-        
-    }
 
-
-
-
-    public Position getPosition(){
-        return this.position;
-    }
-    public void setPosition(Position position){
-        this.position = position;
-    }
-    public boolean getRoadBlock(){
-        return this.roadBlock;
     }
 
 }

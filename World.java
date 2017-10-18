@@ -1,4 +1,3 @@
-
 import java.io.FileNotFoundException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -24,8 +23,8 @@ public class World {
 
 	//passed to enemy units
 	private boolean playerMoved = false;
-	private Position currPos;
-	private int currDirection;
+	private Position currPlayPos;
+	private int currPlayDir;
 
 	public World(String lvlAddress) throws FileNotFoundException, SlickException {
 		this.spriteArray = Loader.loadSprites(this,lvlAddress);
@@ -44,46 +43,44 @@ public class World {
 			MoveStack.undoMoves();
 		}
 
-
 		//Non-system command
 		else {
 			// C style for loop //
 			for(int i=0; i<spriteArray.size(); i++) {
-				currspr = spriteArray.get(i);
+				currSpr = spriteArray.get(i);
 
 			// Time ticks & time based movement
 				// Skeleton
-				if(currspr.instanceOf(Skeleton)){
+				if(currSpr.instanceOf(Skeleton)){
 					/*add time*/
 					/*skeleton move*/
 				}
 				// Ice
-				else if(currspr.instanceOf(Ice)){
+				else if(currSpr.instanceOf(Ice)){
 					/*if slide block is still true*/
 					/* add time*/
 					/*ice move*/
 				}
 				// Explosion
-				else if(currspr.instanceOf(Explosion)){
+				else if(currSpr.instanceOf(Explosion)){
 					/*add time*/
 					/* check expire */
 				}
 
-
 		// Check collision events
 
 			//enemy kill player
-				if(/*enemy && enemy position == players position*/) {
-					World.reload();
+				if(/*currSpr.instanceOf(Enemy) && (currSpr.getPosition())  players position*/) {
+					App.reset();
 				}
 
 			//new target covered
-				if(/*target*/){
+				if(currSpr.instanceOf(Target)){
 					for(/*sprites*/){
 						//update if newly covered
-						if(/*share pos, is block and targetTog == False*/){
+						if(/*share pos, is block && target wasn't covered*/){
 							nTargetsCov+=1;
-							//targetTog = True
+							(Target)currSpr.cover();
 							break;
 						}
 					}
@@ -98,11 +95,11 @@ public class World {
 				if(/*block*/) {
 					for(/*over sprite array*/) {
 						if(/*shared pos if player or rogue*/) {
-							block.collide(currPos,currDirection);
+							//block.collide(currPlayPos,currPlayDir);
 						}
 						else if(/*doorSwitch*/) {
 							for(/*sprite array until door*/) {
-								door.toggle();
+								//door.toggle();
 							}
 						}
 					}
@@ -112,7 +109,7 @@ public class World {
 				if(/*tnt detected*/) {
 					for(/*sprite array*/) {
 						if(/*cracked wall && same position*/) {
-							cracked.collide();
+							//cracked.explode();
 						}
 					}
 				}
@@ -125,49 +122,45 @@ public class World {
 			if(input.iskeyPressed(Input.KEY_UP)) {
 				direction = UP;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 
 			}
 			if(input.iskeyPressed(Input.KEY_DOWN)) {
 				direction = DOWN;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_LEFT)) {
 				direction = LEFT;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_RIGHT)) {
 				direction = RIGHT;
 				playerMoved = true;
-				player.move(world,direction);
+				nMoves += 1;
+				player.move(this, direction);
 			}
 
-			currPos = player.getPosition();
-			currDirection = player.getDirection();
+			currPlayPos = player.getPosition();
+			currPlayDir = player.getDirection();
 
 			//player based enemy movement
 			if(playerMoved){
 				for(int index; index < spriteArray.size(); index++) {
-					if(currspr.instanceOf(Rogue)){
+					if(currSpr.instanceOf(Rogue)){
 						/*Rogue move*/
 					}
-					if(currspr.instanceOf(Mage)){
+					if(currSpr.instanceOf(Mage)){
 						/*Mage move*/
 					}
 				}
 			}
 		}
-
-		if(/*win condition*/) {
-			if(/*World.nLvl < MAXLVL*/){
-				/*World.setLvl(World.getLvl)*/
-			}
-			//change update to new nCurrLvl
-			// check MAXLVL
-			// RESET/CLOSE
-		}
+		App.checkWin(nTargets, nTargetsCov)
 	}
 
 	// render floor then player to enure player is always after
@@ -175,10 +168,7 @@ public class World {
 		for (Sprite sprite : spriteArray) {
 			spriteTile.render(g);
 		}
-	}
-
-	//method for checking win-condition
-	public boolean checkWin(){
+		//draw move count
 
 	}
 
@@ -191,7 +181,3 @@ public class World {
 		}
 		return list;
 	}
-
-///////////////////////////////////////////////////////////////////////////////
-//////////////////////////// Getters and Setters //////////////////////////////
-///////////////////////////////////////////////////////////////////////////////

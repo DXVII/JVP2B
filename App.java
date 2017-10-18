@@ -46,11 +46,33 @@ public class App extends BasicGame {
 		}
     }
 
-    public void reset(){
+
+///////////////////////////////////////////////////////////////////////////////
+
+    public static void reset(){
 		App.lvlAddress = App.LVL_TXT + (String)App.nLvl + App.LVL_TXT_END;
-        App.world = new World(lvlAddress);
+        App.world = new World(App.lvlAddress);
 	}
 
+
+    public static void checkWin(int nTargets, int nTargetsCov){
+        if(nTargets == nTargetsCov){
+            if(App.nLvl < MAX_LVL){
+                App.nLvl += 1;
+            } else {
+                App.nLvl = 0;
+            }
+            App.reset();
+        }
+        //else do nothing
+    }
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////
 
     /** UPDATE the game state for a frame.
      * @param gc The Slick game container object.
