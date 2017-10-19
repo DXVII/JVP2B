@@ -59,7 +59,7 @@ public class World {
 				// Ice
 				else if(currSpr.instanceOf(Ice)){
 					/*if slide block is still true*/
-					/* add time*/
+					currSpr.update();
 					/*ice move*/
 				}
 				// Explosion
@@ -93,10 +93,10 @@ public class World {
 				}
 
 			// blocks: ice, tnt, stone
-				if(/*block*/) {
+				if(currSpr.instanceOf(Block)) {
 					for(/*over sprite array*/) {
 						if(/*shared pos if player or rogue*/) {
-							//block.collide(currPlayPos,currPlayDir);
+							//block.move(currPlayPos,currPlayDir);
 						}
 						else if(/*doorSwitch*/) {
 							for(/*sprite array until door*/) {
@@ -107,9 +107,9 @@ public class World {
 				}
 
 			//tnt & cracked wall
-				if(/*tnt detected*/) {
+				if(/*Cracked*/) {
 					for(/*sprite array*/) {
-						if(/*cracked wall && same position*/) {
+						if(/*tnt && same position*/) {
 							//cracked.explode();
 						}
 					}

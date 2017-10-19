@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 
 public abstract class Sprite {
     private Image pic;
-	private boolean togRender;
+	private boolean toRender;
     private Position position;
     private boolean roadBlock;
 
@@ -14,10 +14,10 @@ public abstract class Sprite {
     public Sprite(String image_src, Position position) throws SlickException {
 		this.position = position;
 		this.pic = new Image(image_src);
-        this.togRender = true;
+        this.toRender = true;
     }
 
-    public void update(Input input, int delta) {
+    public void update(World world, int direction, Input input, int delta) {
     }
 
 	public void render(Graphics g) {
@@ -33,8 +33,21 @@ public abstract class Sprite {
     public void setPosition(Position position){
         this.position = position;
     }
+
+
     public boolean getRoadBlock(){
         return this.roadBlock;
+    }
+    public void setRoadBlock(boolean change){
+        this.roadBlock = change;
+    }
+
+
+    public boolean getRender(){
+        return this.toRender;
+    }
+    public void setRender(boolean change){
+        this.toRender = change;
     }
 
 }

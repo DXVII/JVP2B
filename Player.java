@@ -14,14 +14,14 @@ public class Player extends Sprite implements Moveable {
 	}
 
     public void move(World world, int direction){
-        Postion nextPos = Postion.nextPosition(this.position, direction);
+        Postion nextPos = this.getPosition().nextPosition(direction);
 		ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 		// checking all sprites in next position
 		for(Sprite currSpr : spritesAtPos){
 			//if not wall/door/cracked, if no Block or block is pushable
-			if ( !currSpr.getRoadBlock() && (currSpr.instanceOf(Block)
+			if ( !currSpr.getRoadBlock() && (!currSpr.instanceOf(Block)
 									||currSpr.canBlockMove(world, direction)) ){
-				this.position = nextPos;
+				this.setPosition(nextPos);
 				MoveStack.recordMove(this, newPos);
 			}
 

@@ -4,7 +4,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-public abstract class Block extends Sprite {
+public class Tnt extends Block {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, postion);
@@ -18,14 +18,15 @@ public abstract class Block extends Sprite {
     	super.render(g)
     }
 
-    //block asks itself if it can move (if next pos has a block or a wall)
+    //cracked wall edit
     public boolean canBlockMove(World world, int direction) {
         Postion nextPos = this.getPosition().nextPosition(direction);
         ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 
         for(Sprite currSpr : spritesAtPos){
-            //currblock can't move if encounters roadBlokck or another Block
-            if(currSpr.getRoadBlock() || currSpr.instanceOf(Block)){
+            //change permit to move through Cracked
+            if(currSpr.instanceOf(Block) ||
+            (currSpr.getRoadBlock() && !currSpr.instanceOf(Cracked)) ){
                 return false;
             }
         }
@@ -33,11 +34,7 @@ public abstract class Block extends Sprite {
     }
 
     public void move(World world, int direction){
-        Postion nextPos = this.getPosition().nextPosition(direction);
-        if(this.canBlockMove(world, direction)){
-            this.setPosition(nextPos);
-            MoveStack.recordMove(this, newPos);
-        }
+        super.move(world,direction);
     }
 
 }
