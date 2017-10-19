@@ -20,7 +20,7 @@ public abstract class Sprite {
 	//x & y represent the pixel locations of floor tiles
 	private Image pic;
 	private boolean rendered;
-	public Sprite(String image_src, Postion postion) throws SlickException {
+	public Sprite(String image_src, Position position) throws SlickException {
 		this.x = x;
 		this.y = y;
 		this.pic = new Image(image_src);
@@ -42,7 +42,7 @@ public abstract class Sprite {
 		// }
 	}
 
-	public void update(Input input, int delta) {
+	public void update(World world, int direction, Input input, int delta) {
 	}
 
 	public void render(Graphics g) {

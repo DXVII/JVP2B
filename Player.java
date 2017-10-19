@@ -8,13 +8,13 @@ import org.newdawn.slick.Image;
 
 public class Player extends Sprite implements Moveable {
 
-	public Player(String image_src, Position postion)
+	public Player(String image_src, Position position)
 	throws SlickException {
-		super(image_src, postion);
+		super(image_src, position);
 	}
 
     public void move(World world, int direction){
-        Postion nextPos = this.getPosition().nextPosition(direction);
+        Position nextPos = this.getPosition().nextPosition(direction);
 		ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 		// checking all sprites in next position
 		for(Sprite currSpr : spritesAtPos){

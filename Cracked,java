@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 public class Cracked extends Sprite {
 
     public Wall(String image_src, Position position) throws SlickException {
-		super(image_src, postion);
+		super(image_src, position);
         this.roadBlock = true;
     }
 

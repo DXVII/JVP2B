@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 public class Door extends Sprite {
 
     public Wall(String image_src, Position position) throws SlickException {
-		super(image_src, postion);
+		super(image_src, position);
     }
 
     public void render(Graphics g){

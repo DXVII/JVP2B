@@ -7,11 +7,11 @@ import org.newdawn.slick.Image;
 public class Tnt extends Block {
 
     public Block(String image_src, Position position) throws SlickException {
-		super(image_src, postion);
+		super(image_src, position);
         this.roadBlock = false;
     }
 
-    public void update(Input input, int delta) {
+    public void update(World world, int direction, Input input, int delta) {
     }
 
     public void render(Graphics g){
@@ -20,7 +20,7 @@ public class Tnt extends Block {
 
     //cracked wall edit
     public boolean canBlockMove(World world, int direction) {
-        Postion nextPos = this.getPosition().nextPosition(direction);
+        Position nextPos = this.getPosition().nextPosition(direction);
         ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 
         for(Sprite currSpr : spritesAtPos){

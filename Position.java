@@ -16,7 +16,7 @@ public class Position {
         this.y = y;
     }
 
-    public Postion nextPosition(int direction){
+    public Position nextPosition(int direction){
         int newX = this.getX();
         int newY = this.getY();
         if(direction == World.UP){

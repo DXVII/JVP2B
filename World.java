@@ -32,7 +32,7 @@ public class World {
 	}
 
 
-	public void update(Input input, int delta) {
+	public void update(World world, int direction, Input input, int delta) {
 
 		//Restart
 		if(iskeyPressed(input.KEY_R)) {
@@ -180,4 +180,8 @@ public class World {
 			}
 		}
 		return list;
+	}
+
+	public void addExplosion(Position position){
+		this.spriteArray.add(new Explosion(position));
 	}

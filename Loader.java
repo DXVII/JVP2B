@@ -54,47 +54,47 @@ public class Loader {
 		        y = Integer.parseInt((txtRow[Y_COORD]).trim());
 
 				//generating Sprites
-				Postion postion = new Postion(x,y);
+				Position position = new Position(x,y);
 
 		        if(tileType.equals("cracked")) {
-					list.add(new Cracked(tileType, postion));
+					list.add(new Cracked(tileType, position));
 				}
 				else if(tileType.equals("door")){
-					list.add(new Door(tileType, postion));
+					list.add(new Door(tileType, position));
 	            }
 				else if(tileType.equals("floor")) {
-					list.add(new Floor(tileType, postion));
+					list.add(new Floor(tileType, position));
 				}
 				else if(tileType.equals("ice")){
-					list.add(new Ice(tileType, postion));
+					list.add(new Ice(tileType, position));
 	            }
 				else if(tileType.equals("mage")){
-					list.add(new Mage(tileType, postion));
+					list.add(new Mage(tileType, position));
 	            }
 				else if(tileType.equals("rogue")){
-					list.add(new Rogue(tileType, postion));
+					list.add(new Rogue(tileType, position));
 	            }
 				else if(tileType.equals("skeleton")){
-					list.add(new Skeleton(tileType, postion));
+					list.add(new Skeleton(tileType, position));
 	            }
 				else if(tileType.equals("stone")){
-					list.add(new Stone(tileType, postion));
+					list.add(new Stone(tileType, position));
 	            }
 				else if(tileType.equals("switch")){
-					list.add(new Button(tileType, postion));
+					list.add(new Button(tileType, position));
 	            }
 				else if(tileType.equals("target")){
-					list.add(new Target(tileType, postion));
+					list.add(new Target(tileType, position));
 					setNTargets(getNTargets+1);
 	            }
 				else if(tileType.equals("tnt")){
-					list.add(new Tnt(tileType, postion));
+					list.add(new Tnt(tileType, position));
 	            }
 				else if(tileType.equals("wall")){
-					list.add(new Wall(tileType, postion));
+					list.add(new Wall(tileType, position));
 				// be kind, definitely player if not anything else
 				} else {
-					list.add(new Player(tileType, postion));
+					list.add(new Player(tileType, position));
 		        }
 		    }
 		} catch (Exception e) {

@@ -8,7 +8,7 @@ public class Floor extends Sprite {
 
 
     public Sprite(String image_src, Position position) throws SlickException {
-        super(image_src, postion);
+        super(image_src, position);
         this.roadBlock = false;
     }
 

@@ -10,7 +10,7 @@ public class Ice extends Block {
     private static final double TIME_LIMIT = 250;
 
     public Block(String image_src, Position position) throws SlickException {
-		super(image_src, postion);
+		super(image_src, position);
         this.roadBlock = false;
     }
 

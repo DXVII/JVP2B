@@ -3,8 +3,8 @@ import java.util.*;
 public class MoveStack{
 
     private Sprite unit;
-    private Postion newPos;
-    private Postion oldPos;
+    private Position newPos;
+    private Position oldPos;
 
     private static Stack<MoveStack> moveHistory = new Stack<MoveStack>;
 
