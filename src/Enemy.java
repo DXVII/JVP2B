@@ -24,8 +24,8 @@ public abstract class Enemy extends Sprite {
 		for(Sprite currSpr : spritesAtPos){
             //block and enemy have similar behaviour
             if(currSpr.getRoadBlock() ||
-            (currSpr.instanceOf(Block) &&
-            (currSpr.instanceOf(Tnt) && !currSpr.getRoadBlock()))) {
+            (currSpr.isInstance(Block) &&
+            (currSpr.isInstance(Tnt) && !currSpr.getRoadBlock()))) {
                 return False;
             }
         }

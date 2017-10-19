@@ -20,7 +20,7 @@ public class Player extends Sprite implements Moveable {
 		for(Sprite currSpr : spritesAtPos){
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
-			(currSpr.instanceOf(Block) &&
+			(currSpr.isInstance(Block) &&
 			!currSpr.canBlockMove(world, direction)) ){
 				return false;
 			}

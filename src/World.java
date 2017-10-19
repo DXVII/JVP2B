@@ -68,17 +68,17 @@ public class World {
 
 			// Time ticks & time based movement
 				// Skeleton
-				if(currSpr.instanceOf(Skeleton)){
+				if(currSpr.isInstance(Skeleton)){
 					currSpr.update(this.world, delta);
 				}
 				// Ice
-				else if(currSpr.instanceOf(Ice)){
+				else if(currSpr.isInstance(Ice)){
 					/*if slide block is still true*/
 					currSpr.update(this, delta);
 					/*ice move incorporated in update*/
 				}
 				// Explosion
-				else if(currSpr.instanceOf(Explosion)){
+				else if(currSpr.isInstance(Explosion)){
 					currSpr.update(this, delta);
 					/* expiration in update */
 				}
@@ -87,20 +87,20 @@ public class World {
 			// Check collision events
 
 				//Player Death
-				if(currSpr.instanceOf(Enemy) &&
+				if(currSpr.isInstance(Enemy) &&
 				((currSpr.getPosition()).equals(this.currPlayPos)) ) {
 					App.reset();
 				}
 
 				//Target Dynamics
-				if(currSpr.instanceOf(Target)){
+				if(currSpr.isInstance(Target)){
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
 
 						// target +1 if was not covered
 						if(!currSpr.isCovered()){
 							//and suddenly sees block, target +1
-							if(checkSpr.instanceOf(Block)){
+							if(checkSpr.isInstance(Block)){
 								nTargetsCov+=1;
 								// check if you've won the game
 								App.checkWin(nTargets, nTargetsCov);
@@ -112,7 +112,7 @@ public class World {
 						} else {
 
 							//  and still sees block end loop
-							if(checkSpr.instanceOf(Block)){
+							if(checkSpr.isInstance(Block)){
 								/*nothing special*/
 								break;
 							}
@@ -127,10 +127,10 @@ public class World {
 				}// target conditions
 
 				// switch and door dynamics
-				if(checkSpr.instanceOf(Switch)) {
+				if(checkSpr.isInstance(Switch)) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
-						if(checkSpr.instanceOf(Block)){
+						if(checkSpr.isInstance(Block)){
 							this.door.doorOpen();
 							break;
 						}
@@ -140,23 +140,23 @@ public class World {
 				}
 
 				// block movement: ice, tnt, stone
-				if(currSpr.instanceOf(Block)) {
+				if(currSpr.isInstance(Block)) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
 
 						// collision only with rogue and player
-						if (checkSpr.instanceOf(Player) ||
-						checkSpr.instanceOf(Rogue)) {
+						if (checkSpr.isInstance(Player) ||
+						checkSpr.isInstance(Rogue)) {
 							currSpr.move(this, checkSpr.getDirection());
 						}
 					}
 				}
 
 			//tnt explosion dynamics
-				if(currSpr.instanceOf(Cracked)) {
+				if(currSpr.isInstance(Cracked)) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
-						if(checkSpr.instanceOf(Tnt)) {
+						if(checkSpr.isInstance(Tnt)) {
 							currSpr.explode(this);
 						}
 					}
@@ -198,8 +198,8 @@ public class World {
 			//player observing enemy movement
 			if(this.playerMoved){
 				for(int index; index < spriteArray.size(); index++) {
-					if(currSpr.instanceOf(Rogue) ||
-					currSpr.instanceOf(Mage)){
+					if(currSpr.isInstance(Rogue) ||
+					currSpr.isInstance(Mage)){
 						currSpr.move(this);
 					}
 				}
@@ -238,7 +238,7 @@ public class World {
 
 	public Sprite findDoor(){
 		for(Sprite spr : this.spriteArray){
-			if(spr.instanceOf(Door)){
+			if(spr.isInstance(Door)){
 				return spr;
 			}
 		}

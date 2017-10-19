@@ -22,15 +22,15 @@ public class App extends BasicGame {
 
     //level data
     public static final String LVL_TXT = "src/levels/";
-	public static final String LVL_TXT_END =".lvl"
+	public static final String LVL_TXT_END =".lvl";
 
-    public static final String IMG_TXT = "src/res/"
-	public static final String IMG_TXT_END =".png"
+    public static final String IMG_TXT = "src/res/";
+	public static final String IMG_TXT_END =".png";
 
-    public static final MAX_LVL = 5;
+    public static final int MAX_LVL = 5;
 
     private static World world;
-    private static String lvlAddress = '';
+    private static String lvlAddress = "";
     private static int nLvl = 0;
 
     public App() {
@@ -40,7 +40,8 @@ public class App extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
     	try {
-			world = new World();
+            App.lvlAddress = App.LVL_TXT + Integer.toString(App.nLvl) + App.LVL_TXT_END;
+			world = new World(lvlAddress);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,22 +51,22 @@ public class App extends BasicGame {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-    public static void reset(){
-		App.lvlAddress = App.LVL_TXT + (String)App.nLvl + App.LVL_TXT_END;
+    public static void reset() throws FileNotFoundException, SlickException{
+		App.lvlAddress = App.LVL_TXT + Integer.toString(App.nLvl) + App.LVL_TXT_END;
         App.world = new World(App.lvlAddress);
         MoveStack.clearStack();
 	}
 
 
-    public static void checkWin(int nTargets, int nTargetsCov){
+    public static void checkWin(int nTargets, int nTargetsCov) throws FileNotFoundException, SlickException{
         if(nTargets == nTargetsCov){
             App.nextLevel();
         }
         //else do nothing
     }
 
-    public static void nextLevel(){
-        if(App.nLvl < MAX_LVL){
+    public static void nextLevel() throws FileNotFoundException, SlickException{
+        if(App.nLvl < App.MAX_LVL){
             App.nLvl += 1;
         } else {
             App.nLvl = 0;

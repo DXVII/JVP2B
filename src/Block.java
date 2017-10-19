@@ -14,7 +14,7 @@ public abstract class Block extends Sprite {
     }
 
     public void render(Graphics g){
-    	super.render(g)
+    	super.render(g);
     }
 
     //block asks itself if it can move (if next pos has a block or a wall)
@@ -27,8 +27,8 @@ public abstract class Block extends Sprite {
             /*Either blocked, there is another block that is not exploded tnt*/
             //consider sprite removal//
             if( currSpr.getRoadBlock() ||
-            (currSpr.instanceOf(Block) &&
-            (currSpr.instanceOf(Tnt) && !currSpr.getRoadBlock()))) {
+            (currSpr.isInstance(Block) &&
+            (currSpr.isInstance(Tnt) && !currSpr.getRoadBlock()))) {
                 return false;
             }
         }

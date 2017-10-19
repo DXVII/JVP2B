@@ -25,7 +25,7 @@ public class Loader {
 	 * @throws FileNotFoundException
 	 */
 
-	public static ArrayList<Sprite> loadSprites(World, world, String lvlAddress)
+	public static ArrayList<Sprite> loadSprites(World world, String lvlAddress)
 	throws SlickException {
 
 		ArrayList<Sprite> list = new ArrayList<Sprite>();

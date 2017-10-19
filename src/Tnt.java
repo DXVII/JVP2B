@@ -14,7 +14,7 @@ public class Tnt extends Block {
     }
 
     public void render(Graphics g){
-    	super.render(g)
+    	super.render(g);
     }
 
     //cracked wall edit
@@ -24,8 +24,8 @@ public class Tnt extends Block {
 
         for(Sprite currSpr : spritesAtPos){
             //change permit to move through Cracked
-            if(currSpr.instanceOf(Block) ||
-            (currSpr.getRoadBlock() && !currSpr.instanceOf(Cracked)) ){
+            if(currSpr.isInstance(Block) ||
+            (currSpr.getRoadBlock() && !currSpr.isInstance(Cracked)) ){
                 return false;
             }
         }
