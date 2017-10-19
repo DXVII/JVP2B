@@ -19,18 +19,18 @@ public class Loader {
 
 	/**
 	 * Loads the sprites from a given file.
-	 * @param filename
+	 * @param lvlAddress
 	 * @return
 	 * @throws SlickException
 	 * @throws FileNotFoundException
 	 */
 
-	public static ArrayList<Sprite> loadSprites(String filename)
+	public static ArrayList<Sprite> loadSprites(World, world, String lvlAddress)
 	throws SlickException {
 
 		ArrayList<Sprite> list = new ArrayList<Sprite>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(lvlAddress))) {
 			//read first line to obtain level dimensions
 		    String[] txtRow = (br.readLine()).split(",");
 			//extract from file convert int

@@ -53,6 +53,7 @@ public class App extends BasicGame {
     public static void reset(){
 		App.lvlAddress = App.LVL_TXT + (String)App.nLvl + App.LVL_TXT_END;
         App.world = new World(App.lvlAddress);
+        MoveStack.clearStack();
 	}
 
 
@@ -87,10 +88,12 @@ public class App extends BasicGame {
         // Get data about the current input (keyboard state).
         Input input = gc.getInput();
         world.update(input, delta);
+
         //Escape Command
         if(input.isKeyPressed(Input.KEY_ESCAPE)){
             System.exit(0);
         }
+
     }
 
 

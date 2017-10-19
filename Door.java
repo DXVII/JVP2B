@@ -4,8 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public class Door extends Sprite {
-
-    public Wall(String image_src, Position position) throws SlickException {
+    public Door(String image_src, Position position) throws SlickException {
 		super(image_src, position);
         this.setRoadBlock(true);
     }
@@ -14,14 +13,11 @@ public class Door extends Sprite {
         super.render(g)
     }
 
-    public void toggleOff(){
-        /* if toggle was off */
-            // unlock
-        /* if toggle was on */
-            // lock
+    public void doorOpen(){
+        this.setRoadBlock(true);
+        this.setRender(true);
     }
-
-    /*Method - unlock*/
-        //roadBlock false
-        // super.super(togRendered) false
+    public void doorClose(){
+        super.suppress()
+    }
 }

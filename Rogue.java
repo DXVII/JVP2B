@@ -4,9 +4,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-public class Skeleton extends Enemy {
+public class Rogue extends Enemy {
     private boolean leftward = true;
-    public Enemy(String image_src, Position position) throws SlickException {
+    public Rogue(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 
@@ -35,7 +35,7 @@ public class Skeleton extends Enemy {
         // moving left
         if(this.leftward){
             if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.UP);
+                this.setPosition(this.nextPosition(World.LEFT);
                 this.time = 0;
             } else {
                 //if blocked off, move back
@@ -44,7 +44,7 @@ public class Skeleton extends Enemy {
         // moving right
         } else {
             if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.DOWN);
+                this.setPosition(this.nextPosition(World.RIGHT);
                 this.time = 0;
             } else {
                 this.leftward = !this.leftward;

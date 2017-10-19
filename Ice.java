@@ -5,12 +5,12 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public class Ice extends Block {
+    private static final double TIME_LIMIT = 250;
     private double time = 0;
     private boolean sliding = false;
     private int slideDir;
-    private static final double TIME_LIMIT = 250;
 
-    public Block(String image_src, Position position) throws SlickException {
+    public Ice(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 
@@ -39,8 +39,10 @@ public class Ice extends Block {
     }
 
     public void move(World world, int direction){
-        if(this.canBlockMove()){
+        if(this.canBlockMove(world, direction)){
+            Position nextPos = this.getPosition().nextPosition(this.slideDir);
             super.move(world, direction);
+            MoveStack.recordMove(this, nextPos);
             //slide direction assigned externally
             // or passed repetitively from update
             this.slideDir = direction;

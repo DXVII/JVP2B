@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 
 public class Tnt extends Block {
 
-    public Block(String image_src, Position position) throws SlickException {
+    public Tnt(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 
@@ -33,7 +33,15 @@ public class Tnt extends Block {
     }
 
     public void move(World world, int direction){
-        super.move(world,direction);
+        Position nextPos = this.getPosition().nextPosition(direction);
+        if(this.canBlockMove(world, direction)){
+            Position nextPos = this.getPosition().nextPosition(direction);
+            this.setPosition(nextPos);
+            //when tnt exploded no need to recordMove
+            if(this.getRender()){
+                MoveStack.recordMove(this, nextPos);
+            }
+        }
     }
 
     public void explode(){

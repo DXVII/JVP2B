@@ -25,8 +25,10 @@ public class World {
 
 	//passed to enemy units
 	private boolean playerMoved = false;
+
+	//questionable if needed
 	private Position currPlayPos;
-	private int currPlayDir;
+
 
 	ArrayList<Sprite> samePosSprites;
 
@@ -63,12 +65,11 @@ public class World {
 			for(int i=0; i<spriteArray.size(); i++) {
 				Sprite currSpr = spriteArray.get(i);
 
-          ///////////////////////////////////////////////////////////
+
 			// Time ticks & time based movement
 				// Skeleton
 				if(currSpr.instanceOf(Skeleton)){
-					currSpr.update(this.world, this.delta);
-					currSpr.move(this);
+					currSpr.update(this.world, delta);
 				}
 				// Ice
 				else if(currSpr.instanceOf(Ice)){
@@ -82,7 +83,7 @@ public class World {
 					/* expiration in update */
 				}
 
-          ///////////////////////////////////////////////////////////
+
 			// Check collision events
 
 				//Player Death
@@ -112,10 +113,11 @@ public class World {
 
 							//  and still sees block end loop
 							if(checkSpr.instanceOf(Block)){
+								/*nothing special*/
 								break;
 							}
 
-							// and now no blocks detected, it has been removed
+							// and now no blocks detected->it has been removed
 							nTargetsCov-=1;
 							spr.uncover();
 						}
@@ -129,27 +131,25 @@ public class World {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
 						if(checkSpr.instanceOf(Block)){
-							this.door.toggleOff();
+							this.door.doorOpen();
 							break;
 						}
-						this.door.toggleOn();
+						this.door.doorClose();
 
 					}
 				}
 
-				// block dynamics: ice, tnt, stone
+				// block movement: ice, tnt, stone
 				if(currSpr.instanceOf(Block)) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
 
-						// collision dynamics
+						// collision only with rogue and player
 						if (checkSpr.instanceOf(Player) ||
 						checkSpr.instanceOf(Rogue)) {
 							currSpr.move(this, checkSpr.getDirection());
 						}
-
 					}
-
 				}
 
 			//tnt explosion dynamics
@@ -194,7 +194,6 @@ public class World {
 			}
 			//keep track of player movements
 			currPlayPos = player.getPosition();
-			currPlayDir = player.getDirection();
 
 			//player observing enemy movement
 			if(this.playerMoved){
@@ -214,10 +213,10 @@ public class World {
 
 	// render floor then player to enure player is always after
 	public void render(Graphics g) {
-		for (Sprite sprite : spriteArray) {
-			spriteTile.render(g);
+		for (Sprite sprite : this.spriteArray) {
+			sprite.render(g);
 		}
-		//draw move count
+		//draw move count && fps
 	}
 
 
@@ -244,11 +243,19 @@ public class World {
 			}
 		}
 	}
-
+//////////////////////////////////////////////////////////////////////////////
 	public Position getPlayerPos(){
 		return this.currPlayPos;
 	}
 
 	public void setPlayerPos(Position change){
 		this.currPlayPos = change;
+	}
+
+	public void setLvlWidth(int width){
+		this.lvlWidth = width;
+	}
+
+	public void setLvlHeight(int height){
+		this.lvlHeight = height;
 	}

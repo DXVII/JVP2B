@@ -25,12 +25,14 @@ public abstract class Block extends Sprite {
         for(Sprite currSpr : spritesAtPos){
 
             /*Either blocked, there is another block that is not exploded tnt*/
+            //consider sprite removal//
             if( currSpr.getRoadBlock() ||
             (currSpr.instanceOf(Block) &&
             (currSpr.instanceOf(Tnt) && !currSpr.getRoadBlock()))) {
                 return false;
             }
         }
+        //no obstacles then move on
         return true;
     }
 
@@ -38,7 +40,7 @@ public abstract class Block extends Sprite {
         Position nextPos = this.getPosition().nextPosition(direction);
         if(this.canBlockMove(world, direction)){
             this.setPosition(nextPos);
-            MoveStack.recordMove(this, newPos);
+            MoveStack.recordMove(this, nextPos);
         }
     }
 

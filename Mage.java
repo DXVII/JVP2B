@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 
 public class Mage extends Enemy {
 
-    public Enemy(String image_src, Position position) throws SlickException {
+    public Mage(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 

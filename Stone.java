@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 
 public class Stone extends Block {
 
-    public Block(String image_src, Position position) throws SlickException {
+    public Stone(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 

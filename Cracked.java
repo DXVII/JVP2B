@@ -5,7 +5,7 @@ import org.newdawn.slick.Image;
 
 public class Cracked extends Sprite {
 
-    public Block(String image_src, Position position) throws SlickException {
+    public Cracked(String image_src, Position position) throws SlickException {
 		super(image_src, position);
         this.setRoadBlock(true);
     }
@@ -18,8 +18,7 @@ public class Cracked extends Sprite {
     }
 
     public void explode(World world){
-        this.setRoadBlock(false);
-        this.setRender(false);
+        super.suppress()
         world.addExplosion(this.getPosition());
     }
 

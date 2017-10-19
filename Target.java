@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 public class Target extends Sprite {
     boolean covered = false;
 
-    public Sprite(String image_src, Position position) throws SlickException {
+    public Target(String image_src, Position position) throws SlickException {
         super(image_src, position);
     }
 

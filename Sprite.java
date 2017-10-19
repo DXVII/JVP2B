@@ -31,6 +31,11 @@ public abstract class Sprite {
             pic.draw(this.xPix,this.yPix);
         }
 	}
+    public void suppress() {
+        this.roadBlock = false;
+        this.toRender = false;
+    }
+
     public Position getPosition(){
         return this.position;
     }
