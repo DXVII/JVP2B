@@ -1,8 +1,9 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public abstract class Enemy extends Sprite {
 
@@ -14,7 +15,7 @@ public abstract class Enemy extends Sprite {
     }
 
     public void render(Graphics g){
-        super.render(g)
+        super.render(g);
     }
 
     public boolean canEnemyMove(World world, int direction){
@@ -24,9 +25,9 @@ public abstract class Enemy extends Sprite {
 		for(Sprite currSpr : spritesAtPos){
             //block and enemy have similar behaviour
             if(currSpr.getRoadBlock() ||
-            (currSpr.isInstance(Block) &&
-            (currSpr.isInstance(Tnt) && !currSpr.getRoadBlock()))) {
-                return False;
+            (currSpr instanceof Block &&
+            (currSpr instanceof Tnt && !currSpr.getRoadBlock()))) {
+                return false;
             }
         }
         return true;

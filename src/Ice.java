@@ -1,8 +1,6 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Ice extends Block {
     private static final double TIME_LIMIT = 250;
@@ -35,7 +33,7 @@ public class Ice extends Block {
 
     //unique method, if Block object can move
     public boolean canBlockMove(World world, int direction) {
-        super.canBlockMove(world, direction);
+        return super.canBlockMove(world, direction);
     }
 
     public void move(World world, int direction){

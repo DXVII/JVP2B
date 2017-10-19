@@ -1,5 +1,4 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,11 +9,13 @@ public abstract class Sprite {
     private Position position;
     private boolean roadBlock;
     private int direction;
+    private int worldWidth;
+    private int worldHeight;
 
 
     public Sprite(String image_src, Position position) throws SlickException {
 		this.position = position;
-		this.pic = new Image(image_src);
+		this.pic = new Image(App.IMG_TXT + image_src+ App.IMG_TXT_END);
         this.toRender = true;
         this.roadBlock = false;
     }
@@ -24,17 +25,18 @@ public abstract class Sprite {
 
 	public void render(Graphics g) {
         int x = this.position.getX();
-        int x = this.position.getY();
-        double xPix = App.TILE_SIZE*(x-0.5*World.lvlWidth)+App.SCREEN_WIDTH/2;
-        double yPix = App.TILE_SIZE*(y-0.5*World.lvlHeight)+App.SCREEN_HEIGHT/2;
+        int y = this.position.getY();
+        float xPix = (float)(App.TILE_SIZE*(x-0.5*(this.worldWidth)) + App.SCREEN_WIDTH/2);
+        float yPix = (float)(App.TILE_SIZE*(y-0.5*(this.worldHeight)) + App.SCREEN_HEIGHT/2);
         if(this.toRender){
-            pic.draw(this.xPix,this.yPix);
+            pic.draw(xPix,yPix);
         }
 	}
-    public void suppress() {
-        this.roadBlock = false;
-        this.toRender = false;
-    }
+	
+	public void getWorldDim(World world) {
+		this.worldWidth = world.getLvlWidth();
+		this.worldWidth = world.getLvlHeight();
+	}
 
     public Position getPosition(){
         return this.position;
@@ -42,7 +44,18 @@ public abstract class Sprite {
     public void setPosition(Position position){
         this.position = position;
     }
+    
+    public int getDirection(){
+        return this.direction;
+    }
+    public void setDirection(int direction){
+        this.direction = direction;
+    }
 
+    public void suppress() {
+        this.roadBlock = false;
+        this.toRender = false;
+    }
 
     public boolean getRoadBlock(){
         return this.roadBlock;
@@ -51,19 +64,11 @@ public abstract class Sprite {
         this.roadBlock = change;
     }
 
-
     public boolean getRender(){
         return this.toRender;
     }
     public void setRender(boolean change){
         this.toRender = change;
-    }
-
-    public int getDirection(){
-        return this.direction;
-    }
-    public void setDirection(int direction){
-        this.direction = direction;
     }
 
 }

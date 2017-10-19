@@ -21,10 +21,10 @@ public class App extends BasicGame {
     public static final int TILE_SIZE = 32;
 
     //level data
-    public static final String LVL_TXT = "src/levels/";
+    public static final String LVL_TXT = "levels/";
 	public static final String LVL_TXT_END =".lvl";
 
-    public static final String IMG_TXT = "src/res/";
+    public static final String IMG_TXT = "res/";
 	public static final String IMG_TXT_END =".png";
 
     public static final int MAX_LVL = 5;
@@ -88,7 +88,12 @@ public class App extends BasicGame {
     public void update(GameContainer gc, int delta) throws SlickException {
         // Get data about the current input (keyboard state).
         Input input = gc.getInput();
-        world.update(input, delta);
+        try {
+			world.update(input, delta);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         //Escape Command
         if(input.isKeyPressed(Input.KEY_ESCAPE)){

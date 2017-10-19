@@ -1,8 +1,9 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Rogue extends Enemy {
     private boolean leftward = true;
@@ -14,7 +15,7 @@ public class Rogue extends Enemy {
     }
 
     public void render(Graphics g){
-        super.render(g)
+        super.render(g);
     }
     //rogue moves like player, override default enemy movement
     public boolean canEnemyMove(World world, int direction) {
@@ -24,30 +25,33 @@ public class Rogue extends Enemy {
 		for(Sprite currSpr : spritesAtPos){
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
-			(currSpr.isInstance(Block) &&
-			!currSpr.canBlockMove(world, direction)) ){
+			(currSpr instanceof Block &&
+			!((Block) currSpr).canBlockMove(world, direction)) ){
 				return false;
 			}
-			return true;
+		}
+		return true;
     }
 
     public void move(World world){
         // moving left
         if(this.leftward){
-            if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.LEFT);
-                this.time = 0;
+            if(this.canEnemyMove(world, World.LEFT)){
+                this.setPosition((this.getPosition()).nextPosition(World.LEFT));
+                this.setDirection(World.LEFT);
             } else {
                 //if blocked off, move back
                 this.leftward = !this.leftward;
+                this.setDirection(World.RIGHT);
             }
         // moving right
         } else {
-            if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.RIGHT);
-                this.time = 0;
+            if(this.canEnemyMove(world, World.RIGHT)){
+                this.setPosition((this.getPosition()).nextPosition(World.RIGHT));
+                this.setDirection(World.RIGHT);
             } else {
                 this.leftward = !this.leftward;
+                this.setDirection(World.LEFT);
             }
         }
 

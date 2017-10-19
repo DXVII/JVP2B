@@ -1,8 +1,6 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Target extends Sprite {
     boolean covered = false;
@@ -16,7 +14,7 @@ public class Target extends Sprite {
 	}
 
     public boolean isCovered(){
-        return this.cover;
+        return this.covered;
     }
     public void cover(){
         this.covered = true;

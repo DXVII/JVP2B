@@ -1,5 +1,7 @@
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -38,15 +40,15 @@ public class World {
 	}
 
 
-	public void update(Input input, int delta) {
+	public void update(Input input, int delta) throws FileNotFoundException, SlickException {
 
 	//Restart
-		if(iskeyPressed(input.KEY_R)) {
+		if(input.isKeyPressed(Input.KEY_R)) {
 			App.reset();
 		}
 
 	//Undo
-		else if(iskeyPressed(input.KEY_Z)) {
+		else if(input.isKeyPressed(Input.KEY_Z)) {
 			MoveStack.undoMoves();
 			if(this.nMoves > 0){
 				this.nMoves -= 1;
@@ -54,7 +56,7 @@ public class World {
 		}
 
 	// Next Level
-		else if(iskeyPressed(input.KEY_N)){
+		else if(input.isKeyPressed(Input.KEY_N)){
 			App.nextLevel();
 		}
 
@@ -68,17 +70,17 @@ public class World {
 
 			// Time ticks & time based movement
 				// Skeleton
-				if(currSpr.isInstance(Skeleton)){
-					currSpr.update(this.world, delta);
+				if(currSpr instanceof Skeleton){
+					currSpr.update(this, delta);
 				}
 				// Ice
-				else if(currSpr.isInstance(Ice)){
+				else if(currSpr instanceof Ice){
 					/*if slide block is still true*/
 					currSpr.update(this, delta);
 					/*ice move incorporated in update*/
 				}
 				// Explosion
-				else if(currSpr.isInstance(Explosion)){
+				else if(currSpr instanceof Explosion){
 					currSpr.update(this, delta);
 					/* expiration in update */
 				}
@@ -87,39 +89,39 @@ public class World {
 			// Check collision events
 
 				//Player Death
-				if(currSpr.isInstance(Enemy) &&
+				if(currSpr instanceof Enemy &&
 				((currSpr.getPosition()).equals(this.currPlayPos)) ) {
 					App.reset();
 				}
 
 				//Target Dynamics
-				if(currSpr.isInstance(Target)){
+				if(currSpr instanceof Target){
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
 
 						// target +1 if was not covered
-						if(!currSpr.isCovered()){
+						if(!((Target) currSpr).isCovered()){
 							//and suddenly sees block, target +1
-							if(checkSpr.isInstance(Block)){
+							if(checkSpr instanceof Block){
 								nTargetsCov+=1;
 								// check if you've won the game
 								App.checkWin(nTargets, nTargetsCov);
 								//block is now covered
-								currSpr.cover();
+								((Target) currSpr).cover();
 								break;
 							}
 						//if was blocked,
 						} else {
 
 							//  and still sees block end loop
-							if(checkSpr.isInstance(Block)){
+							if(checkSpr instanceof Block){
 								/*nothing special*/
 								break;
 							}
 
 							// and now no blocks detected->it has been removed
 							nTargetsCov-=1;
-							spr.uncover();
+							((Target) currSpr).uncover();
 						}
 
 					}// target loop
@@ -127,86 +129,89 @@ public class World {
 				}// target conditions
 
 				// switch and door dynamics
-				if(checkSpr.isInstance(Switch)) {
+				if(currSpr instanceof Switch) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
-						if(checkSpr.isInstance(Block)){
-							this.door.doorOpen();
+						if(checkSpr instanceof Block){
+							((Door) this.door).doorOpen();
 							break;
 						}
-						this.door.doorClose();
+						((Door) this.door).doorClose();
 
 					}
 				}
 
 				// block movement: ice, tnt, stone
-				if(currSpr.isInstance(Block)) {
+				if(currSpr instanceof Block) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
 
 						// collision only with rogue and player
-						if (checkSpr.isInstance(Player) ||
-						checkSpr.isInstance(Rogue)) {
-							currSpr.move(this, checkSpr.getDirection());
+						if (checkSpr instanceof Player) {
+							((Player) currSpr).move(this, currSpr.getDirection());
+						}
+						else if (checkSpr instanceof Rogue) {
+							((Block) currSpr).move(this, currSpr.getDirection());
 						}
 					}
 				}
 
-			//tnt explosion dynamics
-				if(currSpr.isInstance(Cracked)) {
+				//tnt explosion dynamics
+				if(currSpr instanceof Cracked) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
-						if(checkSpr.isInstance(Tnt)) {
-							currSpr.explode(this);
+						if(checkSpr instanceof Tnt) {
+							((Cracked) currSpr).explode(this);
 						}
 					}
 				}
 
-			}// endloop collision events
+				//Player Movement
+				if(currSpr instanceof Player) {
+					this.playerMoved = false;
+					if(input.isKeyPressed(Input.KEY_UP)) {
+						this.direction = UP;
+						this.playerMoved = true;
+						this.nMoves += 1;
+						((Player) currSpr).move(this, direction);
 
+					}
+					if(input.isKeyPressed(Input.KEY_DOWN)) {
+						this.direction = DOWN;
+						this.playerMoved = true;
+						this.nMoves += 1;
+						((Player) currSpr).move(this, direction);
+					}
+					if(input.isKeyPressed(Input.KEY_LEFT)) {
+						this.direction = LEFT;
+						this.playerMoved = true;
+						this.nMoves += 1;
+						((Player) currSpr).move(this, direction);
+					}
+					if(input.isKeyPressed(Input.KEY_RIGHT)) {
+						this.direction = RIGHT;
+						this.playerMoved = true;
+						this.nMoves += 1;
+						((Player) currSpr).move(this, direction);
+					}
+					//player movement easily access
+					currPlayPos = currSpr.getPosition();
+				}
 
-			//Player Movement
-			this.playerMoved = false;
-			if(input.iskeyPressed(Input.KEY_UP)) {
-				this.direction = UP;
-				this.playerMoved = true;
-				this.nMoves += 1;
-				player.move(this, direction);
-
-			}
-			if(input.iskeyPressed(Input.KEY_DOWN)) {
-				this.direction = DOWN;
-				this.playerMoved = true;
-				this.nMoves += 1;
-				player.move(this, direction);
-			}
-			if(input.iskeyPressed(Input.KEY_LEFT)) {
-				this.direction = LEFT;
-				this.playerMoved = true;
-				this.nMoves += 1;
-				player.move(this, direction);
-			}
-			if(input.iskeyPressed(Input.KEY_RIGHT)) {
-				this.direction = RIGHT;
-				this.playerMoved = true;
-				this.nMoves += 1;
-				player.move(this, direction);
-			}
-			//keep track of player movements
-			currPlayPos = player.getPosition();
-
-			//player observing enemy movement
-			if(this.playerMoved){
-				for(int index; index < spriteArray.size(); index++) {
-					if(currSpr.isInstance(Rogue) ||
-					currSpr.isInstance(Mage)){
-						currSpr.move(this);
+				//player observing enemy movement
+				if(this.playerMoved){
+					for(Sprite enemySpr : spriteArray) {
+						if(enemySpr instanceof Rogue ||
+						enemySpr instanceof Mage){
+							((Enemy) enemySpr).move(this);
+						}
 					}
 				}
-			}
-		}
+			}// endloop collision events
 
-	}
+		}//system commands
+
+	}//update
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -225,23 +230,26 @@ public class World {
 	public ArrayList<Sprite> getSpritesAt(Position position){
 		ArrayList<Sprite> list = new ArrayList<Sprite>();
 		for(Sprite currSpr : this.spriteArray){
-			if(currSpr.position.equals(position)){
+			if(currSpr.getPosition().equals(position)){
 				list.add(currSpr);
 			}
 		}
 		return list;
 	}
 
-	public void addExplosion(Position position){
-		this.spriteArray.add(new Explosion(position));
+	public void addExplosion(Position position) throws SlickException{
+		//add path for explosion pic
+		this.spriteArray.add(new Explosion("explosion", position));
 	}
 
 	public Sprite findDoor(){
 		for(Sprite spr : this.spriteArray){
-			if(spr.isInstance(Door)){
+			if(spr instanceof Door){
 				return spr;
 			}
 		}
+		//check this again
+		return door;
 	}
 //////////////////////////////////////////////////////////////////////////////
 	public Position getPlayerPos(){
@@ -252,10 +260,26 @@ public class World {
 		this.currPlayPos = change;
 	}
 
+	public int getLvlWidth(){
+		return this.lvlWidth;
+	}
+
 	public void setLvlWidth(int width){
 		this.lvlWidth = width;
 	}
 
+	public int getLvlHeight(){
+		return this.lvlHeight;
+	}
 	public void setLvlHeight(int height){
 		this.lvlHeight = height;
 	}
+	public int getNTargets(){
+		return this.nTargets;
+	}
+	public void setNTargets(int nTargets){
+		this.nTargets = nTargets;
+	}
+
+
+}

@@ -81,11 +81,11 @@ public class Loader {
 					list.add(new Stone(tileType, position));
 	            }
 				else if(tileType.equals("switch")){
-					list.add(new Button(tileType, position));
+					list.add(new Switch(tileType, position));
 	            }
 				else if(tileType.equals("target")){
 					list.add(new Target(tileType, position));
-					setNTargets(getNTargets+1);
+					world.setNTargets(world.getNTargets()+1);
 	            }
 				else if(tileType.equals("tnt")){
 					list.add(new Tnt(tileType, position));
@@ -104,4 +104,5 @@ public class Loader {
 		return list;
 		//.toArray(new Sprite[list.size()]);
 	}
+	
 }

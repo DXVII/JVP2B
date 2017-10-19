@@ -1,7 +1,5 @@
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Door extends Sprite {
     public Door(String image_src, Position position) throws SlickException {
@@ -10,7 +8,7 @@ public class Door extends Sprite {
     }
 
     public void render(Graphics g){
-        super.render(g)
+        super.render(g);
     }
 
     public void doorOpen(){
@@ -18,6 +16,6 @@ public class Door extends Sprite {
         this.setRender(true);
     }
     public void doorClose(){
-        super.suppress()
+        super.suppress();
     }
 }

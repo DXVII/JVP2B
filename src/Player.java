@@ -1,12 +1,13 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 //player is an extension of Sprite
 
-public class Player extends Sprite implements Moveable {
+public class Player extends Sprite{
 
 	public Player(String image_src, Position position)
 	throws SlickException {
@@ -20,25 +21,25 @@ public class Player extends Sprite implements Moveable {
 		for(Sprite currSpr : spritesAtPos){
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
-			(currSpr.isInstance(Block) &&
-			!currSpr.canBlockMove(world, direction)) ){
+			(currSpr instanceof Block &&
+			!((Block) currSpr).canBlockMove(world, direction)) ){
 				return false;
 			}
-			return true;
 		}
-
-
+		return true;
 	}
 	public void move(World world, int direction){
 		if(canPlayerMove(world, direction)){
+			Position nextPos = this.getPosition().nextPosition(direction);
 			this.setPosition(nextPos);
-			MoveStack.recordMove(this, newPos);
+			this.setDirection(direction);
+			MoveStack.recordMove(this, nextPos);
 		}
 
 	}
 
 	public void render(Graphics g){
-		super.render(g)
+		super.render(g);
 	}
 
 	public Position getPosition(){

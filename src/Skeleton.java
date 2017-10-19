@@ -1,8 +1,6 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Skeleton extends Enemy {
     private double time = 0;
@@ -21,19 +19,19 @@ public class Skeleton extends Enemy {
     }
 
     public void render(Graphics g){
-        super.render(g)
+        super.render(g);
     }
 
     public boolean canEnemyMove(World world, int direction) {
-        super.canEnemyMove(world);
+        return super.canEnemyMove(world, direction);
     }
 
     public void move(World world){
 
         // moving up
         if(this.upward){
-            if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.UP);
+            if(this.canEnemyMove(world, World.UP)){
+                this.setPosition((this.getPosition()).nextPosition(World.UP));
                 this.time = 0;
             } else {
                 //if blocked off, move back
@@ -41,8 +39,8 @@ public class Skeleton extends Enemy {
             }
         // moving down
         } else {
-            if(this.canEnemyMove(world)){
-                this.setPosition(this.nextPosition(World.DOWN);
+            if(this.canEnemyMove(world, World.DOWN)){
+                this.setPosition((this.getPosition()).nextPosition(World.DOWN));
                 this.time = 0;
             } else {
                 this.upward = !this.upward;

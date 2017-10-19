@@ -1,11 +1,4 @@
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import org.newdawn.slick.SlickException;
-import java.io.BufferedReader;
-
-
 public class Position {
     //cell coordinate
     private int x;
@@ -36,7 +29,7 @@ public class Position {
 
     public boolean equals(Position position){
         //equating integer x and y coordinates
-        return (this.x == position.getX() && this.y == position.getY())
+        return (this.x == position.getX() && this.y == position.getY());
     }
 
     public int getX(){

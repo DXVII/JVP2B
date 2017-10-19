@@ -1,8 +1,9 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public class Tnt extends Block {
 
@@ -24,8 +25,8 @@ public class Tnt extends Block {
 
         for(Sprite currSpr : spritesAtPos){
             //change permit to move through Cracked
-            if(currSpr.isInstance(Block) ||
-            (currSpr.getRoadBlock() && !currSpr.isInstance(Cracked)) ){
+            if(currSpr instanceof Block ||
+            (currSpr.getRoadBlock() && !(currSpr instanceof Cracked)) ){
                 return false;
             }
         }
@@ -35,8 +36,7 @@ public class Tnt extends Block {
     public void move(World world, int direction){
         Position nextPos = this.getPosition().nextPosition(direction);
         if(this.canBlockMove(world, direction)){
-            Position nextPos = this.getPosition().nextPosition(direction);
-            this.setPosition(nextPos);
+            this.setPosition(this.getPosition().nextPosition(direction));
             //when tnt exploded no need to recordMove
             if(this.getRender()){
                 MoveStack.recordMove(this, nextPos);

@@ -14,11 +14,11 @@ public class Mage extends Enemy {
     }
 
     public void render(Graphics g){
-        super.render(g)
+        super.render(g);
     }
 
     public boolean canEnemyMove(World world, int direction) {
-        super.canEnemyMove(world, direction);
+        return super.canEnemyMove(world, direction);
     }
 
     public void move(World world){
@@ -32,22 +32,22 @@ public class Mage extends Enemy {
         // bigger distance covered, mage limited to one move at a time
         if(dx >= dy){
             if(dx > 0){
-                if(this.canEnemyMove(world)){
-                    this.setPosition(this.nextPosition(World.RIGHT));
+                if(this.canEnemyMove(world, World.RIGHT)){
+                    this.setPosition(this.getPosition().nextPosition(World.RIGHT));
                 }
             } else {
-                if(this.canEnemyMove(world)){
-                    this.setPosition(this.nextPosition(World.LEFT));
+                if(this.canEnemyMove(world,World.LEFT)){
+                    this.setPosition(this.getPosition().nextPosition(World.LEFT));
                 }
             }
         } else {
             if(dy > 0){
-                if(this.canEnemyMove(world)){
-                    this.setPosition(this.nextPosition(World.DOWN));
+                if(this.canEnemyMove(world,World.DOWN)){
+                    this.setPosition(this.getPosition().nextPosition(World.DOWN));
                 }
             } else {
-                if(this.canEnemyMove(world)){
-                    this.setPosition(this.nextPosition(World.UP));
+                if(this.canEnemyMove(world,World.UP)){
+                    this.setPosition(this.getPosition().nextPosition(World.UP));
                 }
             }
         }

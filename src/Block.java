@@ -1,8 +1,9 @@
 
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 
 public abstract class Block extends Sprite {
 
@@ -27,8 +28,8 @@ public abstract class Block extends Sprite {
             /*Either blocked, there is another block that is not exploded tnt*/
             //consider sprite removal//
             if( currSpr.getRoadBlock() ||
-            (currSpr.isInstance(Block) &&
-            (currSpr.isInstance(Tnt) && !currSpr.getRoadBlock()))) {
+            (currSpr instanceof Block &&
+            (currSpr instanceof Tnt && !currSpr.getRoadBlock()))) {
                 return false;
             }
         }
