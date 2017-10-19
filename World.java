@@ -18,6 +18,7 @@ public class World {
 	private int nTargets = 0;
 	private int nTargetsCov = 0;
 	private int nMoves = 0;
+	private Sprite door;
 
 	//new player direction
 	private int direction;
@@ -27,8 +28,11 @@ public class World {
 	private Position currPlayPos;
 	private int currPlayDir;
 
+	ArrayList<Sprite> samePosSprites;
+
 	public World(String lvlAddress) throws FileNotFoundException, SlickException {
 		this.spriteArray = Loader.loadSprites(this,lvlAddress);
+		this.door = findDoor();
 	}
 
 
@@ -81,60 +85,79 @@ public class World {
           ///////////////////////////////////////////////////////////
 			// Check collision events
 
-				//enemy kill player
-				if(currSpr.instanceOf(Enemy) && ((currSpr.getPosition()).equals(this.currPlayPos))) {
+				//Player Death
+				if(currSpr.instanceOf(Enemy) &&
+				((currSpr.getPosition()).equals(this.currPlayPos)) ) {
 					App.reset();
 				}
 
-				//new target covered
+				//Target Dynamics
 				if(currSpr.instanceOf(Target)){
-					for(Sprite checkSpr : this.spriteArray){
+					this.samePosSprites = getSpritesAt(currSpr.getPosition());
+					for(Sprite checkSpr : this.samePosSprites){
 
-						//update if newly covered
-						if(/*share pos, is block && target wasn't covered*/){
-							nTargetsCov+=1;
-							(Target)currSpr.cover();
+						// target +1 if was not covered
+						if(!currSpr.isCovered()){
+							//and suddenly sees block, target +1
+							if(checkSpr.instanceOf(Block)){
+								nTargetsCov+=1;
+								// check if you've won the game
+								App.checkWin(nTargets, nTargetsCov);
+								//block is now covered
+								currSpr.cover();
+								break;
+							}
+						//if was blocked,
+						} else {
+
+							//  and still sees block end loop
+							if(checkSpr.instanceOf(Block)){
+								break;
+							}
+
+							// and now no blocks detected, it has been removed
+							nTargetsCov-=1;
+							spr.uncover();
+						}
+
+					}// target loop
+
+				}// target conditions
+
+				// switch and door dynamics
+				if(checkSpr.instanceOf(Switch)) {
+					this.samePosSprites = getSpritesAt(currSpr.getPosition());
+					for(Sprite checkSpr : this.samePosSprites){
+						if(checkSpr.instanceOf(Block)){
+							this.door.toggleOff();
 							break;
 						}
-					}
-					//update is just uncovered
-					if(/*target toggle == True*/){
-						nTargetsCov-=1;
-						//targetTog = false;
+						this.door.toggleOn();
+
 					}
 				}
-
-				// check if you've won the game (after blocks move)
-				App.checkWin(nTargets, nTargetsCov);
-
 
 				// block dynamics: ice, tnt, stone
 				if(currSpr.instanceOf(Block)) {
-					for(Sprite checkSpr : this.spriteArray) {
-						if((currSpr.getPosition()).equals(checkSpr)){
+					this.samePosSprites = getSpritesAt(currSpr.getPosition());
+					for(Sprite checkSpr : this.samePosSprites) {
 
-							// collision dynamics
-							if (checkSpr.instanceOf(Player) ||
-							checkSpr.instanceOf(Rogue)) {
-								currSpr.move(this, checkSpr.getDirection());
-							}
-							// switch and door dynamics
-							else if(/*doorSwitch*/) {
-								for(/*sprite array until door*/) {
-									//door.toggle();
-								}
-							}
-
+						// collision dynamics
+						if (checkSpr.instanceOf(Player) ||
+						checkSpr.instanceOf(Rogue)) {
+							currSpr.move(this, checkSpr.getDirection());
 						}
+
 					}
 
 				}
 
-			//tnt explosionn dynamics
-				if(/*Cracked*/) {
-					for(/*sprite array*/) {
-						if(/*tnt && same position*/) {
-							//cracked.explode();
+			//tnt explosion dynamics
+				if(currSpr.instanceOf(Cracked)) {
+					this.samePosSprites = getSpritesAt(currSpr.getPosition());
+					for(Sprite checkSpr : this.samePosSprites) {
+						if(checkSpr.instanceOf(Tnt)) {
+							currSpr.explode(this);
 						}
 					}
 				}
@@ -200,7 +223,7 @@ public class World {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-	public ArrayList<Sprites> getSpritesAt(Position position){
+	public ArrayList<Sprite> getSpritesAt(Position position){
 		ArrayList<Sprite> list = new ArrayList<Sprite>();
 		for(Sprite currSpr : this.spriteArray){
 			if(currSpr.position.equals(position)){
@@ -212,6 +235,14 @@ public class World {
 
 	public void addExplosion(Position position){
 		this.spriteArray.add(new Explosion(position));
+	}
+
+	public Sprite findDoor(){
+		for(Sprite spr : this.spriteArray){
+			if(spr.instanceOf(Door)){
+				return spr;
+			}
+		}
 	}
 
 	public Position getPlayerPos(){
