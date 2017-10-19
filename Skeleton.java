@@ -29,7 +29,7 @@ public class Skeleton extends Enemy {
         if(this.time >= SKELE_TIME){
             // moving up
             if(this.upward){
-                if(this.canEnemyMove(word)){
+                if(this.canEnemyMove(world)){
                     this.setPosition(this.nextPosition(World.UP);
                     this.time = 0;
                 } else {
@@ -38,7 +38,7 @@ public class Skeleton extends Enemy {
                 }
             // moving down
             } else {
-                if(this.canEnemyMove(word)){
+                if(this.canEnemyMove(world)){
                     this.setPosition(this.nextPosition(World.DOWN);
                     this.time = 0;
                 } else {

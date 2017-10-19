@@ -34,7 +34,7 @@ public class Skeleton extends Enemy {
     public void move(World world){
         // moving left
         if(this.leftward){
-            if(this.canEnemyMove(word)){
+            if(this.canEnemyMove(world)){
                 this.setPosition(this.nextPosition(World.UP);
                 this.time = 0;
             } else {
@@ -43,7 +43,7 @@ public class Skeleton extends Enemy {
             }
         // moving right
         } else {
-            if(this.canEnemyMove(word)){
+            if(this.canEnemyMove(world)){
                 this.setPosition(this.nextPosition(World.DOWN);
                 this.time = 0;
             } else {
