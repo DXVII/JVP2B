@@ -29,5 +29,7 @@ public class MoveStack{
         MoveStack.moveHistory.push(newMove);
     }
 
-    //clear stack upon new level//
+    public static clearStack(){
+        MoveStack.moveHistory.clear();
+    }
 }

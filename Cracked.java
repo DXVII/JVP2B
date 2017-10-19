@@ -7,10 +7,10 @@ public class Cracked extends Sprite {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = true;
+        this.setRoadBlock(true);
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
     public void render(Graphics g){

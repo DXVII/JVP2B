@@ -8,10 +8,9 @@ public class Tnt extends Block {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = false;
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
     public void render(Graphics g){
@@ -35,6 +34,11 @@ public class Tnt extends Block {
 
     public void move(World world, int direction){
         super.move(world,direction);
+    }
+
+    public void explode(){
+        this.setRender(false);
+        this.setRoadBlock(false);
     }
 
 }

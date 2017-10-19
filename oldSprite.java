@@ -42,7 +42,7 @@ public abstract class Sprite {
 		// }
 	}
 
-	public void update(World world, int direction, Input input, int delta) {
+	public void update(World world, int direction, int delta) {
 	}
 
 	public void render(Graphics g) {
@@ -54,17 +54,17 @@ public abstract class Sprite {
 	///////////////////////////////////////////////////////////////////////////////
 
     //xPixel
-    public float GetPosition() {
+    public double GetPosition() {
         return this.position;
     }
 
 
     //yPixel
-    public float getY() {
+    public double getY() {
         return this.y;
     }
 
-    public void setY(float yPixel) {
+    public void setY(double yPixel) {
         this.y = yPixel;
     }
 }

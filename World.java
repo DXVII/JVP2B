@@ -19,7 +19,7 @@ public class World {
 	private int nTargetsCov = 0;
 	private int nMoves = 0;
 
-	//passed to player
+	//new player direction
 	private int direction;
 
 	//passed to enemy units
@@ -32,18 +32,30 @@ public class World {
 	}
 
 
-	public void update(World world, int direction, Input input, int delta) {
+	public void update(World world, int direction, int delta) {
+
+		if(iskeyPressed(input.KEY_ESCAPE)) {
+			/*close game*/
+		}
 
 		//Restart
-		if(iskeyPressed(input.KEY_R)) {
-			this.loadLvl();
+		else if(iskeyPressed(input.KEY_R)) {
+			App.reset();
 		}
+
 
 		//Undo
 		else if(iskeyPressed(input.KEY_Z)) {
 			MoveStack.undoMoves();
+			if(this.nMoves > 0){
+				this.nMoves -= 1;
+			}
 		}
 
+		// Next Level
+		else if(iskeyPressed(input.KEY_N)){
+			App.nextLevel();
+		}
 		//Non-system command
 		else {
 			// C style for loop //
@@ -53,7 +65,7 @@ public class World {
 			// Time ticks & time based movement
 				// Skeleton
 				if(currSpr.instanceOf(Skeleton)){
-					/*add time*/
+					currSpr.update(this.world, this.currPlayDir, this.delta);
 					/*skeleton move*/
 				}
 				// Ice
@@ -119,30 +131,30 @@ public class World {
 
 
 		//Movement
-			playerMoved = false;
+			this.playerMoved = false;
 			if(input.iskeyPressed(Input.KEY_UP)) {
-				direction = UP;
-				playerMoved = true;
-				nMoves += 1;
+				this.direction = UP;
+				this.playerMoved = true;
+				this.nMoves += 1;
 				player.move(this, direction);
 
 			}
 			if(input.iskeyPressed(Input.KEY_DOWN)) {
-				direction = DOWN;
-				playerMoved = true;
-				nMoves += 1;
+				this.direction = DOWN;
+				this.playerMoved = true;
+				this.nMoves += 1;
 				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_LEFT)) {
-				direction = LEFT;
-				playerMoved = true;
-				nMoves += 1;
+				this.direction = LEFT;
+				this.playerMoved = true;
+				this.nMoves += 1;
 				player.move(this, direction);
 			}
 			if(input.iskeyPressed(Input.KEY_RIGHT)) {
-				direction = RIGHT;
-				playerMoved = true;
-				nMoves += 1;
+				this.direction = RIGHT;
+				this.playerMoved = true;
+				this.nMoves += 1;
 				player.move(this, direction);
 			}
 
@@ -150,7 +162,7 @@ public class World {
 			currPlayDir = player.getDirection();
 
 			//player based enemy movement
-			if(playerMoved){
+			if(this.playerMoved){
 				for(int index; index < spriteArray.size(); index++) {
 					if(currSpr.instanceOf(Rogue)){
 						/*Rogue move*/
@@ -172,6 +184,7 @@ public class World {
 		//draw move count
 	}
 
+
 	public ArrayList<Sprites> getSpritesAt(Position position){
 		ArrayList<Sprite> list = new ArrayList<Sprite>();
 		for(Sprite currSpr : this.spriteArray){
@@ -184,4 +197,12 @@ public class World {
 
 	public void addExplosion(Position position){
 		this.spriteArray.add(new Explosion(position));
+	}
+
+	public Position getPlayerPos(){
+		return this.currPlayPos;
+	}
+
+	public void setPlayerPos(Position change){
+		this.currPlayPos = change;
 	}

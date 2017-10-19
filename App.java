@@ -58,16 +58,19 @@ public class App extends BasicGame {
 
     public static void checkWin(int nTargets, int nTargetsCov){
         if(nTargets == nTargetsCov){
-            if(App.nLvl < MAX_LVL){
-                App.nLvl += 1;
-            } else {
-                App.nLvl = 0;
-            }
-            App.reset();
+            App.nextLevel();
         }
         //else do nothing
     }
 
+    public static void nextLevel(){
+        if(App.nLvl < MAX_LVL){
+            App.nLvl += 1;
+        } else {
+            App.nLvl = 0;
+        }
+        App.reset();
+    }
 
 
 

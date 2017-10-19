@@ -8,7 +8,7 @@ public class Wall extends Sprite {
 
     public Wall(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = true;
+        this.setRoadBlock = true;
     }
 
     public void render(Graphics g){

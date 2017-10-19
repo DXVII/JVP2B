@@ -8,10 +8,9 @@ public class Stone extends Block {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = false;
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
     public void render(Graphics g){

@@ -11,14 +11,13 @@ public class Ice extends Block {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = false;
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
         if(this.slide){
             this.time += delta;
             //slide every 250ms
-            if(time>TIME_LIMIT){
+            if(time >= Ice.TIME_LIMIT){
                 this.move(world, direction);
                 //ice can't slide anymore
                 if(!this.canBlockMove(world,direction)){

@@ -15,17 +15,20 @@ public abstract class Sprite {
 		this.position = position;
 		this.pic = new Image(image_src);
         this.toRender = true;
+        this.roadBlock = false;
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
 	public void render(Graphics g) {
         int x = this.position.getX();
         int x = this.position.getY();
-        float xPix = App.TILE_SIZE*(x-0.5*World.lvlWidth)+App.SCREEN_WIDTH/2;
-        float yPix = App.TILE_SIZE*(y-0.5*World.lvlHeight)+App.SCREEN_HEIGHT/2;
-        pic.draw(this.xPix,this.yPix);
+        double xPix = App.TILE_SIZE*(x-0.5*World.lvlWidth)+App.SCREEN_WIDTH/2;
+        double yPix = App.TILE_SIZE*(y-0.5*World.lvlHeight)+App.SCREEN_HEIGHT/2;
+        if(this.toRender){
+            pic.draw(this.xPix,this.yPix);
+        }
 	}
     public Position getPosition(){
         return this.position;

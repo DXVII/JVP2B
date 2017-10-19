@@ -10,7 +10,7 @@ public class Stone extends Block {
 		super(image_src, position);
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
     public void render(Graphics g){

@@ -8,10 +8,9 @@ public abstract class Block extends Sprite {
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
-        this.roadBlock = false;
     }
 
-    public void update(World world, int direction, Input input, int delta) {
+    public void update(World world, int direction, int delta) {
     }
 
     public void render(Graphics g){
@@ -24,8 +23,11 @@ public abstract class Block extends Sprite {
         ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 
         for(Sprite currSpr : spritesAtPos){
-            //currblock can't move if encounters roadBlokck or another Block
-            if(currSpr.getRoadBlock() || currSpr.instanceOf(Block)){
+
+            /*Either blocked, there is another block that is not exploded tnt*/
+            if( currSpr.getRoadBlock() ||
+            (currSpr.instanceOf(Block) &&
+            (currSpr.instanceOf(Tnt) && !currSpr.getRoadBlock()))) {
                 return false;
             }
         }
