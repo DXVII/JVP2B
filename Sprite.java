@@ -9,6 +9,7 @@ public abstract class Sprite {
 	private boolean toRender;
     private Position position;
     private boolean roadBlock;
+    private int direction;
 
 
     public Sprite(String image_src, Position position) throws SlickException {
@@ -18,7 +19,7 @@ public abstract class Sprite {
         this.roadBlock = false;
     }
 
-    public void update(World world, int direction, int delta) {
+    public void update(World world,  int delta) {
     }
 
 	public void render(Graphics g) {
@@ -51,6 +52,13 @@ public abstract class Sprite {
     }
     public void setRender(boolean change){
         this.toRender = change;
+    }
+
+    public int getDirection(){
+        return this.direction;
+    }
+    public void setDirection(int direction){
+        this.direction = direction;
     }
 
 }

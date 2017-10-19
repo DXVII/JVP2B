@@ -9,7 +9,6 @@ public class Target extends Sprite {
 
     public Sprite(String image_src, Position position) throws SlickException {
         super(image_src, position);
-        this.setRoadBlock = false;
     }
 
 	public void render(Graphics g) {

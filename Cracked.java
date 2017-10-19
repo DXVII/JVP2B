@@ -10,7 +10,7 @@ public class Cracked extends Sprite {
         this.setRoadBlock(true);
     }
 
-    public void update(World world, int direction, int delta) {
+    public void update(World world,  int delta) {
     }
 
     public void render(Graphics g){

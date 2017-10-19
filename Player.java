@@ -25,21 +25,35 @@ public class Player extends Sprite implements Moveable {
 				return false;
 			}
 			return true;
+		}
+
+
 	}
-
-    public void move(World world, int direction){
-        if(canPlayerMove(world, direction)){
-				this.setPosition(nextPos);
-				MoveStack.recordMove(this, newPos);
-			}
-
+	public void move(World world, int direction){
+		if(canPlayerMove(world, direction)){
+			this.setPosition(nextPos);
+			MoveStack.recordMove(this, newPos);
 		}
 
 	}
 
-public void render(Graphics g){
-	super.render(g)
-}
+	public void render(Graphics g){
+		super.render(g)
+	}
 
+	public Position getPosition(){
+        return super.getPosition();
+    }
+    public void setPosition(Position position){
+        super.setPosition(position);
+    }
+
+
+	public int getDirection(){
+        return super.getDirection();
+    }
+    public void setDirection(int direction){
+        super.setDirection(direction);
+    }
 
 }

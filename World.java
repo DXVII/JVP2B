@@ -32,19 +32,14 @@ public class World {
 	}
 
 
-	public void update(World world, int direction, int delta) {
+	public void update(Input input, int delta) {
 
-		if(iskeyPressed(input.KEY_ESCAPE)) {
-			/*close game*/
-		}
-
-		//Restart
-		else if(iskeyPressed(input.KEY_R)) {
+	//Restart
+		if(iskeyPressed(input.KEY_R)) {
 			App.reset();
 		}
 
-
-		//Undo
+	//Undo
 		else if(iskeyPressed(input.KEY_Z)) {
 			MoveStack.undoMoves();
 			if(this.nMoves > 0){
@@ -52,44 +47,49 @@ public class World {
 			}
 		}
 
-		// Next Level
+	// Next Level
 		else if(iskeyPressed(input.KEY_N)){
 			App.nextLevel();
 		}
-		//Non-system command
-		else {
-			// C style for loop //
-			for(int i=0; i<spriteArray.size(); i++) {
-				currSpr = spriteArray.get(i);
 
+
+	//Non-system command
+		else {
+			// C style for loop (incase objects get removed)//
+			for(int i=0; i<spriteArray.size(); i++) {
+				Sprite currSpr = spriteArray.get(i);
+
+          ///////////////////////////////////////////////////////////
 			// Time ticks & time based movement
 				// Skeleton
 				if(currSpr.instanceOf(Skeleton)){
-					currSpr.update(this.world, this.currPlayDir, this.delta);
-					/*skeleton move*/
+					currSpr.update(this.world, this.delta);
+					currSpr.move(this);
 				}
 				// Ice
 				else if(currSpr.instanceOf(Ice)){
 					/*if slide block is still true*/
-					currSpr.update();
-					/*ice move*/
+					currSpr.update(this, delta);
+					/*ice move incorporated in update*/
 				}
 				// Explosion
 				else if(currSpr.instanceOf(Explosion)){
-					/*add time*/
-					/* check expire */
+					currSpr.update(this, delta);
+					/* expiration in update */
 				}
 
-		// Check collision events
+          ///////////////////////////////////////////////////////////
+			// Check collision events
 
-			//enemy kill player
-				if(/*currSpr.instanceOf(Enemy) && (currSpr.getPosition())  players position*/) {
+				//enemy kill player
+				if(currSpr.instanceOf(Enemy) && ((currSpr.getPosition()).equals(this.currPlayPos))) {
 					App.reset();
 				}
 
-			//new target covered
+				//new target covered
 				if(currSpr.instanceOf(Target)){
-					for(/*sprites*/){
+					for(Sprite checkSpr : this.spriteArray){
+
 						//update if newly covered
 						if(/*share pos, is block && target wasn't covered*/){
 							nTargetsCov+=1;
@@ -97,28 +97,40 @@ public class World {
 							break;
 						}
 					}
-					//update is just removed
+					//update is just uncovered
 					if(/*target toggle == True*/){
 						nTargetsCov-=1;
 						//targetTog = false;
 					}
 				}
 
-			// blocks: ice, tnt, stone
+				// check if you've won the game (after blocks move)
+				App.checkWin(nTargets, nTargetsCov);
+
+
+				// block dynamics: ice, tnt, stone
 				if(currSpr.instanceOf(Block)) {
-					for(/*over sprite array*/) {
-						if(/*shared pos if player or rogue*/) {
-							//block.move(currPlayPos,currPlayDir);
-						}
-						else if(/*doorSwitch*/) {
-							for(/*sprite array until door*/) {
-								//door.toggle();
+					for(Sprite checkSpr : this.spriteArray) {
+						if((currSpr.getPosition()).equals(checkSpr)){
+
+							// collision dynamics
+							if (checkSpr.instanceOf(Player) ||
+							checkSpr.instanceOf(Rogue)) {
+								currSpr.move(this, checkSpr.getDirection());
 							}
+							// switch and door dynamics
+							else if(/*doorSwitch*/) {
+								for(/*sprite array until door*/) {
+									//door.toggle();
+								}
+							}
+
 						}
 					}
+
 				}
 
-			//tnt & cracked wall
+			//tnt explosionn dynamics
 				if(/*Cracked*/) {
 					for(/*sprite array*/) {
 						if(/*tnt && same position*/) {
@@ -127,10 +139,10 @@ public class World {
 					}
 				}
 
-			}
+			}// endloop collision events
 
 
-		//Movement
+			//Player Movement
 			this.playerMoved = false;
 			if(input.iskeyPressed(Input.KEY_UP)) {
 				this.direction = UP;
@@ -157,24 +169,25 @@ public class World {
 				this.nMoves += 1;
 				player.move(this, direction);
 			}
-
+			//keep track of player movements
 			currPlayPos = player.getPosition();
 			currPlayDir = player.getDirection();
 
-			//player based enemy movement
+			//player observing enemy movement
 			if(this.playerMoved){
 				for(int index; index < spriteArray.size(); index++) {
-					if(currSpr.instanceOf(Rogue)){
-						/*Rogue move*/
-					}
-					if(currSpr.instanceOf(Mage)){
-						/*Mage move*/
+					if(currSpr.instanceOf(Rogue) ||
+					currSpr.instanceOf(Mage)){
+						currSpr.move(this);
 					}
 				}
 			}
 		}
-		App.checkWin(nTargets, nTargetsCov)
+
 	}
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 	// render floor then player to enure player is always after
 	public void render(Graphics g) {
@@ -184,6 +197,8 @@ public class World {
 		//draw move count
 	}
 
+
+///////////////////////////////////////////////////////////////////////////////
 
 	public ArrayList<Sprites> getSpritesAt(Position position){
 		ArrayList<Sprite> list = new ArrayList<Sprite>();

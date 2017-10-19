@@ -10,7 +10,7 @@ public class Mage extends Enemy {
 		super(image_src, position);
     }
 
-    public void update(World world, int direction, int delta) {
+    public void update(World world,  int delta) {
     }
 
     public void render(Graphics g){

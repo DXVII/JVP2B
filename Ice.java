@@ -6,22 +6,24 @@ import org.newdawn.slick.Image;
 
 public class Ice extends Block {
     private double time = 0;
-    private boolean slide = false;
+    private boolean sliding = false;
+    private int slideDir;
     private static final double TIME_LIMIT = 250;
 
     public Block(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
 
-    public void update(World world, int direction, int delta) {
-        if(this.slide){
+    public void update(World world,  int delta) {
+        if(this.sliding){
             this.time += delta;
             //slide every 250ms
             if(time >= Ice.TIME_LIMIT){
-                this.move(world, direction);
+                //keep sliding in direction was sliding
+                this.move(world, this.slideDir);
                 //ice can't slide anymore
-                if(!this.canBlockMove(world,direction)){
-                    this.slide = false;
+                if(!this.canBlockMove(world,this.slideDir)){
+                    this.sliding = false;
                 }
             }
         }
@@ -37,11 +39,17 @@ public class Ice extends Block {
     }
 
     public void move(World world, int direction){
-        super.move(world, direction);
-        //can slide
-        this.slide = true;
-        //reset timer
-        this.time = 0;
+        if(this.canBlockMove()){
+            super.move(world, direction);
+            //slide direction assigned externally
+            // or passed repetitively from update
+            this.slideDir = direction;
+            //can slide
+            this.sliding = true;
+            //reset timer
+            this.time = 0;
+
+        }
     }
 
 }

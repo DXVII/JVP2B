@@ -10,7 +10,7 @@ public abstract class Enemy extends Sprite {
 		super(image_src, position);
     }
 
-    public void update(World world, int direction, int delta) {
+    public void update(World world,  int delta) {
     }
 
     public void render(Graphics g){
@@ -33,6 +33,21 @@ public abstract class Enemy extends Sprite {
     }
 
     public void move(World world){
+    }
+    
+    public Position getPosition(){
+        return super.getPosition();
+    }
+    public void setPosition(Position position){
+        super.setPosition(position);
+    }
+
+
+	public int getDirection(){
+        return super.getDirection();
+    }
+    public void setDirection(int direction){
+        super.setDirection(direction);
     }
 
 }
