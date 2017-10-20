@@ -76,7 +76,8 @@ public class World {
 			App.prevLevel();
 		}
 
-
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 	//Non-system related commands
 		else {
 		//Check win
@@ -190,7 +191,7 @@ public class World {
 						// TNT meet Cracked (wall)
 						if(checkSpr instanceof Tnt) {
 							//first you explode
-							((Tnt) checkSpr).explode(this);
+							checkSpr.remove(this, checkSpr);
 							// then you explode
 							((Cracked) currSpr).explode(this);
 						}
