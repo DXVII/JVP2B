@@ -25,7 +25,8 @@ public class Ice extends Block {
                 }
             }
         } else {
-        	//movestack
+        	//record moves when not sliding
+        	MoveStack.recordMove(this, this.getPosition());
         }
     }
 
@@ -40,9 +41,7 @@ public class Ice extends Block {
 
     public void move(World world, int direction){
         if(this.canBlockMove(world, direction)){
-            Position nextPos = this.getPosition().nextPosition(this.slideDir);
             super.move(world, direction);
-            MoveStack.recordMove(this, nextPos);
             //slide direction assigned externally
             // or passed repetitively from update
             this.slideDir = direction;
