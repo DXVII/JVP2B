@@ -8,13 +8,6 @@ public abstract class Block extends Sprite {
 		super(image_src, position);
     }
 
-    public void update(World world,  int delta) {
-    }
-
-    public void render(Graphics g){
-    	super.render(g);
-    }
-
     //block asks itself if it can move (if next pos has a block or a wall)
     public boolean canBlockMove(World world, int direction) {
         Position nextPos = this.getPosition().nextPosition(direction);

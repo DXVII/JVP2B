@@ -17,9 +17,5 @@ public class Explosion extends Sprite {
         }
     }
 
-    public void render(Graphics g){
-        super.render(g);
-    }
-
 
 }

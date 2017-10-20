@@ -6,20 +6,14 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 public class Rogue extends Enemy {
-    
+
 	private boolean leftward = true;
-    
+
     public Rogue(String image_src, Position position) throws SlickException {
 		super(image_src, position);
 		this.setDirection(World.LEFT);
     }
 
-    public void update(World world,  int delta) {
-    }
-
-    public void render(Graphics g){
-        super.render(g);
-    }
     //rogue moves like player, override default enemy movement
     public boolean canEnemyMove(World world, int direction) {
         Position nextPos = this.getPosition().nextPosition(direction);
@@ -28,7 +22,7 @@ public class Rogue extends Enemy {
 		for(Sprite currSpr : spritesAtPos){
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
-			(currSpr instanceof Block && 
+			(currSpr instanceof Block &&
 			(!((Block) currSpr).canBlockMove(world, direction))) ){
 				return false;
 			}

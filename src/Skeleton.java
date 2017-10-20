@@ -18,14 +18,6 @@ public class Skeleton extends Enemy {
         }
     }
 
-    public void render(Graphics g){
-        super.render(g);
-    }
-
-    public boolean canEnemyMove(World world, int direction) {
-        return super.canEnemyMove(world, direction);
-    }
-
     public void move(World world){
         // moving up
         if(this.upward){

@@ -29,7 +29,6 @@ public class Position {
 
     public boolean equals(Position position){
         //equating integer x and y coordinates
-
         return ((this.x == position.getX()) && (this.y == position.getY()));
     }
 

@@ -7,10 +7,6 @@ public class Door extends Sprite {
         this.doorClose();
     }
 
-    public void render(Graphics g){
-        super.render(g);
-    }
-
     public void doorClose(){
         this.setRoadBlock(true);
         this.setRender(true);

@@ -10,14 +10,7 @@ public abstract class Enemy extends Sprite {
     public Enemy(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
-
-    public void update(World world,  int delta) {
-    }
-
-    public void render(Graphics g){
-        super.render(g);
-    }
-
+    
     public boolean canEnemyMove(World world, int direction){
         Position nextPos = this.getPosition().nextPosition(direction);
         ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
@@ -31,24 +24,6 @@ public abstract class Enemy extends Sprite {
             }
         }
         return true;
-    }
-
-    public void move(World world){
-    }
-    
-    public Position getPosition(){
-        return super.getPosition();
-    }
-    public void setPosition(Position position){
-        super.setPosition(position);
-    }
-
-
-	public int getDirection(){
-        return super.getDirection();
-    }
-    public void setDirection(int direction){
-        super.setDirection(direction);
     }
 
 }

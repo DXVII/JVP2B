@@ -51,7 +51,6 @@ public class World {
  * @param input input from keyboard
  * @param delta time since last update
  */
-	//@Override
 	public void update(Input input, int delta)
 	throws FileNotFoundException, SlickException {
 
@@ -248,7 +247,7 @@ public class World {
 	 * @param g graphics
 	 */
 
-	//@Override
+
 	public void render(Graphics g) {
 		for (Sprite sprite : this.spriteArray) {
 			sprite.getWorldDim(this);
@@ -263,6 +262,7 @@ public class World {
 
 	/** getSpritesAt: retrieves sprites at a given location
 	 * @param position takes a position to check sprites
+	 * @return sprites at given location
 	*/
 	public ArrayList<Sprite> getSpritesAt(Position position){
 		//make a new ArrayList of sprites to return
@@ -281,7 +281,9 @@ public class World {
 	public void addExplosion(Position position) throws SlickException{
 		this.spriteArray.add(new Explosion("explosion", position));
 	}
-
+/**
+ * gets point of door and gives it to world variable 'door'
+ */
 	public void findDoor(){
 		for(Sprite spr : this.spriteArray){
 			if(spr instanceof Door){
@@ -289,11 +291,10 @@ public class World {
 			}
 		}
 	}
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////// Getters and Setters ////////////////////////////////
 	public Position getPlayerPos(){
 		return this.currPlayPos;
 	}
-
 	public void setPlayerPos(Position change){
 		this.currPlayPos = change;
 	}
@@ -301,7 +302,6 @@ public class World {
 	public int getLvlWidth(){
 		return this.lvlWidth;
 	}
-
 	public void setLvlWidth(int width){
 		this.lvlWidth = width;
 	}
@@ -312,13 +312,13 @@ public class World {
 	public void setLvlHeight(int height){
 		this.lvlHeight = height;
 	}
+
 	public int getNTargets(){
 		return this.nTargets;
 	}
 	public void setNTargets(int nTargets){
 		this.nTargets = nTargets;
 	}
-
 
 	public void removeSprite(Sprite sprite) {
 		this.spriteArray.remove(sprite);

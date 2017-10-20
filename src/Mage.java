@@ -8,17 +8,6 @@ public class Mage extends Enemy {
 		super(image_src, position);
     }
 
-    public void update(World world,  int delta) {
-    }
-
-    public void render(Graphics g){
-        super.render(g);
-    }
-
-    public boolean canEnemyMove(World world, int direction) {
-        return super.canEnemyMove(world, direction);
-    }
-
     public void move(World world){
         // get mage and player pos
         Position magePos = this.getPosition();

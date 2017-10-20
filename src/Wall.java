@@ -6,10 +6,4 @@ public class Wall extends Sprite {
         super(image_src, position);
         this.setRoadBlock(true);
     }
-    public void update(World world,  int delta) {
-    }
-
-	public void render(Graphics g) {
-        super.render(g);
-	}
 }

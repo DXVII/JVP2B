@@ -9,10 +9,6 @@ public class Target extends Sprite {
         super(image_src, position);
     }
 
-	public void render(Graphics g) {
-        super.render(g);
-	}
-
     public boolean isCovered(){
         return this.covered;
     }

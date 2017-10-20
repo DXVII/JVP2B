@@ -102,7 +102,6 @@ public class Loader {
 		}
 
 		return list;
-		//.toArray(new Sprite[list.size()]);
 	}
 
 }

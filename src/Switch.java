@@ -6,7 +6,4 @@ public class Switch extends Sprite {
         super(image_src, position);
     }
 
-	public void render(Graphics g) {
-        super.render(g);
-	}
 }

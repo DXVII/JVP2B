@@ -11,13 +11,6 @@ public class Tnt extends Block {
 		super(image_src, position);
     }
 
-    public void update(World world,  int delta) {
-    }
-
-    public void render(Graphics g){
-    	super.render(g);
-    }
-
     //cracked wall edit
     public boolean canBlockMove(World world, int direction) {
         Position nextPos = this.getPosition().nextPosition(direction);
