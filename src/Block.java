@@ -37,8 +37,8 @@ public abstract class Block extends Sprite {
     	this.setDirection(direction);
         Position nextPos = this.getPosition().nextPosition(direction);
         if(this.canBlockMove(world, direction)){
-            this.setPosition(nextPos);
             MoveStack.recordMove(this, nextPos);
+            this.setPosition(nextPos);
         }
     }
 

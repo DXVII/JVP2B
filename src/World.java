@@ -15,11 +15,10 @@ public class World {
 
 	private int lvlWidth;
 	private int lvlHeight;
-
+	private int nMoves = 0;
 	private ArrayList<Sprite> spriteArray;
 	private int nTargets = 0;
 	private int nTargetsCov = 0;
-	private int nMoves = 0;
 	private Sprite door;
 	//passed to enemy units
 	private boolean playerMoved = false;
@@ -171,8 +170,8 @@ public class World {
 				}
 
 				//Player Movement
+				this.playerMoved = false;
 				if(currSpr instanceof Player) {
-					this.playerMoved = false;
 					if(input.isKeyPressed(Input.KEY_UP)) {
 						this.playerMoved = true;
 						this.nMoves += 1;
@@ -223,7 +222,8 @@ public class World {
 			sprite.getWorldDim(this);
 			sprite.render(g);
 		}
-		//draw move count && fps
+		g.drawString("Moves made: "+Integer.toString(nMoves), 
+				App.TXT_BUFF, App.SCREEN_HEIGHT-App.TXT_BUFF);
 	}
 
 
