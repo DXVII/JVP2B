@@ -19,6 +19,7 @@ public class Player extends Sprite{
 		ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 		// checking all sprites in next position
 		for(Sprite currSpr : spritesAtPos){
+			System.out.println(currSpr.getClass().toString());
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
 			(currSpr instanceof Block &&
@@ -29,10 +30,10 @@ public class Player extends Sprite{
 		return true;
 	}
 	public void move(World world, int direction){
-		if(canPlayerMove(world, direction)){
-			Position nextPos = this.getPosition().nextPosition(direction);
+		this.setDirection(direction);
+		if(this.canPlayerMove(world, direction)){
+			Position nextPos = (this.getPosition()).nextPosition(direction);
 			this.setPosition(nextPos);
-			this.setDirection(direction);
 			MoveStack.recordMove(this, nextPos);
 		}
 

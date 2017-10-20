@@ -27,9 +27,9 @@ public abstract class Block extends Sprite {
 
             /*Either blocked, there is another block that is not exploded tnt*/
             //consider sprite removal//
-            if( currSpr.getRoadBlock() ||
-            (currSpr instanceof Block &&
-            (currSpr instanceof Tnt && !currSpr.getRoadBlock()))) {
+            if(currSpr.getRoadBlock() ||
+            (currSpr instanceof Block && !currSpr.getRoadBlock())) {
+            	System.out.println("block!!!");
                 return false;
             }
         }
@@ -38,6 +38,8 @@ public abstract class Block extends Sprite {
     }
 
     public void move(World world, int direction){
+    	this.setDirection(direction);
+    	System.out.println("Comapare" + direction +" "+ this.getDirection());
         Position nextPos = this.getPosition().nextPosition(direction);
         if(this.canBlockMove(world, direction)){
             this.setPosition(nextPos);

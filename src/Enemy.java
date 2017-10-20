@@ -23,10 +23,11 @@ public abstract class Enemy extends Sprite {
         ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
         // checking all sprites in next position
 		for(Sprite currSpr : spritesAtPos){
-            //block and enemy have similar behaviour
+            //block and enemy have same behaviour move conditions
+			// except rogue
             if(currSpr.getRoadBlock() ||
             (currSpr instanceof Block &&
-            (currSpr instanceof Tnt && !currSpr.getRoadBlock()))) {
+            (currSpr instanceof Tnt && !currSpr.getRoadBlock()) ) ) {
                 return false;
             }
         }

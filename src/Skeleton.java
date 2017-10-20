@@ -6,6 +6,7 @@ public class Skeleton extends Enemy {
     private double time = 0;
     private boolean upward = true;
     private static double SKELE_TIME = 1000;
+    
     public Skeleton(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
@@ -13,7 +14,7 @@ public class Skeleton extends Enemy {
     public void update(World world,  int delta) {
         this.time += delta;
         // if more than 1 sec can move
-        if(this.time >= SKELE_TIME){
+        if(this.time >= Skeleton.SKELE_TIME){
             this.move(world);
         }
     }
@@ -35,7 +36,7 @@ public class Skeleton extends Enemy {
                 this.time = 0;
             } else {
                 //if blocked off, move back
-                this.upward = !this.upward;
+                this.upward = false;
             }
         // moving down
         } else {
@@ -43,7 +44,7 @@ public class Skeleton extends Enemy {
                 this.setPosition((this.getPosition()).nextPosition(World.DOWN));
                 this.time = 0;
             } else {
-                this.upward = !this.upward;
+                this.upward = true;
             }
         }
 

@@ -26,16 +26,16 @@ public abstract class Sprite {
 	public void render(Graphics g) {
         int x = this.position.getX();
         int y = this.position.getY();
-        float xPix = (float)(App.TILE_SIZE*(x-0.5*(this.worldWidth)) + App.SCREEN_WIDTH/2);
-        float yPix = (float)(App.TILE_SIZE*(y-0.5*(this.worldHeight)) + App.SCREEN_HEIGHT/2);
+        float xPix = (float)(App.TILE_SIZE *(x - 0.5*(this.worldWidth)) + App.SCREEN_WIDTH/2);
+        float yPix = (float)(App.TILE_SIZE *(y - 0.5*(this.worldHeight))+ App.SCREEN_HEIGHT/2);
         if(this.toRender){
-            pic.draw(xPix,yPix);
+            pic.drawCentered(xPix,yPix);
         }
 	}
 	
 	public void getWorldDim(World world) {
 		this.worldWidth = world.getLvlWidth();
-		this.worldWidth = world.getLvlHeight();
+		this.worldHeight = world.getLvlHeight();
 	}
 
     public Position getPosition(){
@@ -70,5 +70,10 @@ public abstract class Sprite {
     public void setRender(boolean change){
         this.toRender = change;
     }
+
+	public void remove(World world) {
+		//get arraylist
+		//remove itself from arraylist
+	}
 
 }

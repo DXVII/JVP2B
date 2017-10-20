@@ -57,44 +57,44 @@ public class Loader {
 				Position position = new Position(x,y);
 
 		        if(tileType.equals("cracked")) {
-					list.add(new Cracked(tileType, position));
+					list.add((Sprite) (new Cracked(tileType, position)));
 				}
 				else if(tileType.equals("door")){
-					list.add(new Door(tileType, position));
+					list.add((Sprite) (new Door(tileType, position)));
 	            }
 				else if(tileType.equals("floor")) {
-					list.add(new Floor(tileType, position));
+					list.add((Sprite) (new Floor(tileType, position)));
 				}
 				else if(tileType.equals("ice")){
-					list.add(new Ice(tileType, position));
+					list.add((Sprite) (new Ice(tileType, position)));
 	            }
 				else if(tileType.equals("mage")){
-					list.add(new Mage(tileType, position));
+					list.add((Sprite) (new Mage(tileType, position)));
 	            }
 				else if(tileType.equals("rogue")){
-					list.add(new Rogue(tileType, position));
+					list.add((Sprite) (new Rogue(tileType, position)));
 	            }
-				else if(tileType.equals("skeleton")){
-					list.add(new Skeleton(tileType, position));
+				else if(tileType.equals("skull")){
+					list.add((Sprite) (new Skeleton("skeleton", position)));
 	            }
 				else if(tileType.equals("stone")){
-					list.add(new Stone(tileType, position));
+					list.add((Sprite) (new Stone(tileType, position)));
 	            }
 				else if(tileType.equals("switch")){
-					list.add(new Switch(tileType, position));
+					list.add((Sprite) (new Switch(tileType, position)));
 	            }
 				else if(tileType.equals("target")){
-					list.add(new Target(tileType, position));
+					list.add((Sprite) (new Target(tileType, position)));
 					world.setNTargets(world.getNTargets()+1);
 	            }
 				else if(tileType.equals("tnt")){
-					list.add(new Tnt(tileType, position));
+					list.add((Sprite) (new Tnt(tileType, position)));
 	            }
 				else if(tileType.equals("wall")){
-					list.add(new Wall(tileType, position));
+					list.add((Sprite) (new Wall(tileType, position)));
 				// be kind, definitely player if not anything else
-				} else {
-					list.add(new Player(tileType, position));
+				} else if (tileType.equals("player")){
+					list.add((Sprite) (new Player(tileType, position)));
 		        }
 		    }
 		} catch (Exception e) {
@@ -104,5 +104,5 @@ public class Loader {
 		return list;
 		//.toArray(new Sprite[list.size()]);
 	}
-	
+
 }

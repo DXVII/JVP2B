@@ -14,14 +14,4 @@ public class Stone extends Block {
     public void render(Graphics g){
     	super.render(g);
     }
-
-    //unique method, if Block object can move
-    public boolean canBlockMove(World world, int direction) {
-        return super.canBlockMove(world, direction);
-    }
-
-    public void move(World world, int direction){
-        super.move(world,direction);
-    }
-
 }

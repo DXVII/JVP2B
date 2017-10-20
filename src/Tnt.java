@@ -44,9 +44,8 @@ public class Tnt extends Block {
         }
     }
 
-    public void explode(){
-        this.setRender(false);
-        this.setRoadBlock(false);
+    public void explode(World world){
+        this.remove(world);
     }
 
 }

@@ -41,7 +41,7 @@ public class App extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
     	try {
             App.lvlAddress = App.LVL_TXT + Integer.toString(App.nLvl) + App.LVL_TXT_END;
-			world = new World(lvlAddress);
+			world = new World(App.lvlAddress);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,14 +56,6 @@ public class App extends BasicGame {
         App.world = new World(App.lvlAddress);
         MoveStack.clearStack();
 	}
-
-
-    public static void checkWin(int nTargets, int nTargetsCov) throws FileNotFoundException, SlickException{
-        if(nTargets == nTargetsCov){
-            App.nextLevel();
-        }
-        //else do nothing
-    }
 
     public static void nextLevel() throws FileNotFoundException, SlickException{
         if(App.nLvl < App.MAX_LVL){

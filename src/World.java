@@ -21,18 +21,13 @@ public class World {
 	private int nTargetsCov = 0;
 	private int nMoves = 0;
 	private Sprite door;
-
-	//new player direction
-	private int direction;
-
 	//passed to enemy units
 	private boolean playerMoved = false;
 
 	//questionable if needed
 	private Position currPlayPos;
+	private ArrayList<Sprite> samePosSprites;
 
-
-	ArrayList<Sprite> samePosSprites;
 
 	public World(String lvlAddress) throws FileNotFoundException, SlickException {
 		this.spriteArray = Loader.loadSprites(this,lvlAddress);
@@ -63,6 +58,9 @@ public class World {
 
 	//Non-system command
 		else {
+			if(this.nTargets == this.nTargetsCov){
+				App.nextLevel();
+			}
 			// C style for loop (incase objects get removed)//
 			for(int i=0; i<spriteArray.size(); i++) {
 				Sprite currSpr = spriteArray.get(i);
@@ -71,17 +69,17 @@ public class World {
 			// Time ticks & time based movement
 				// Skeleton
 				if(currSpr instanceof Skeleton){
-					currSpr.update(this, delta);
+					((Skeleton) currSpr).update(this, delta);
 				}
 				// Ice
 				else if(currSpr instanceof Ice){
 					/*if slide block is still true*/
-					currSpr.update(this, delta);
+					((Ice) currSpr).update(this, delta);
 					/*ice move incorporated in update*/
 				}
 				// Explosion
 				else if(currSpr instanceof Explosion){
-					currSpr.update(this, delta);
+					((Explosion) currSpr).update(this, delta);
 					/* expiration in update */
 				}
 
@@ -89,6 +87,7 @@ public class World {
 			// Check collision events
 
 				//Player Death
+				System.out.println(currSpr);
 				if(currSpr instanceof Enemy &&
 				((currSpr.getPosition()).equals(this.currPlayPos)) ) {
 					App.reset();
@@ -96,6 +95,7 @@ public class World {
 
 				//Target Dynamics
 				if(currSpr instanceof Target){
+					//Target checks sprites at its position
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites){
 
@@ -105,7 +105,6 @@ public class World {
 							if(checkSpr instanceof Block){
 								nTargetsCov+=1;
 								// check if you've won the game
-								App.checkWin(nTargets, nTargetsCov);
 								//block is now covered
 								((Target) currSpr).cover();
 								break;
@@ -125,9 +124,11 @@ public class World {
 						}
 
 					}// target loop
-
+					
+					
 				}// target conditions
-
+				
+				
 				// switch and door dynamics
 				if(currSpr instanceof Switch) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
@@ -144,14 +145,15 @@ public class World {
 				// block movement: ice, tnt, stone
 				if(currSpr instanceof Block) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
+						
 					for(Sprite checkSpr : this.samePosSprites) {
-
 						// collision only with rogue and player
 						if (checkSpr instanceof Player) {
-							((Player) currSpr).move(this, currSpr.getDirection());
+							System.out.println(currSpr.getDirection());
+							((Block) currSpr).move(this, checkSpr.getDirection());
 						}
 						else if (checkSpr instanceof Rogue) {
-							((Block) currSpr).move(this, currSpr.getDirection());
+							((Block) currSpr).move(this, checkSpr.getDirection());
 						}
 					}
 				}
@@ -161,7 +163,8 @@ public class World {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
 						if(checkSpr instanceof Tnt) {
-							((Cracked) currSpr).explode(this);
+							//((Tnt) checkSpr).explode(this);
+							//((Cracked) currSpr).explode(this);
 						}
 					}
 				}
@@ -170,29 +173,25 @@ public class World {
 				if(currSpr instanceof Player) {
 					this.playerMoved = false;
 					if(input.isKeyPressed(Input.KEY_UP)) {
-						this.direction = UP;
 						this.playerMoved = true;
 						this.nMoves += 1;
-						((Player) currSpr).move(this, direction);
+						((Player) currSpr).move(this, World.UP);
 
 					}
 					if(input.isKeyPressed(Input.KEY_DOWN)) {
-						this.direction = DOWN;
 						this.playerMoved = true;
 						this.nMoves += 1;
-						((Player) currSpr).move(this, direction);
+						((Player) currSpr).move(this, World.DOWN);
 					}
 					if(input.isKeyPressed(Input.KEY_LEFT)) {
-						this.direction = LEFT;
 						this.playerMoved = true;
 						this.nMoves += 1;
-						((Player) currSpr).move(this, direction);
+						((Player) currSpr).move(this, World.LEFT);
 					}
 					if(input.isKeyPressed(Input.KEY_RIGHT)) {
-						this.direction = RIGHT;
 						this.playerMoved = true;
 						this.nMoves += 1;
-						((Player) currSpr).move(this, direction);
+						((Player) currSpr).move(this, World.RIGHT);
 					}
 					//player movement easily access
 					currPlayPos = currSpr.getPosition();
@@ -219,6 +218,7 @@ public class World {
 	// render floor then player to enure player is always after
 	public void render(Graphics g) {
 		for (Sprite sprite : this.spriteArray) {
+			sprite.getWorldDim(this);
 			sprite.render(g);
 		}
 		//draw move count && fps

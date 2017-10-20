@@ -24,6 +24,8 @@ public class Ice extends Block {
                     this.sliding = false;
                 }
             }
+        } else {
+        	//movestack
         }
     }
 
