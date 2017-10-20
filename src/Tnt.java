@@ -45,7 +45,7 @@ public class Tnt extends Block {
     }
 
     public void explode(World world){
-        this.remove(world);
+        super.remove(world, this);
     }
 
 }

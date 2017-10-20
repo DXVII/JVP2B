@@ -16,7 +16,7 @@ public class Cracked extends Sprite {
     }
 
     public void explode(World world){
-        super.remove(world);
+        super.remove(world, this);
         try {
 			world.addExplosion(this.getPosition());
 		} catch (SlickException e) {

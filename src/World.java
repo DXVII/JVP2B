@@ -163,8 +163,8 @@ public class World {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
 					for(Sprite checkSpr : this.samePosSprites) {
 						if(checkSpr instanceof Tnt) {
-							//((Tnt) checkSpr).explode(this);
-							//((Cracked) currSpr).explode(this);
+							((Tnt) checkSpr).explode(this);
+							((Cracked) currSpr).explode(this);
 						}
 					}
 				}
@@ -279,6 +279,12 @@ public class World {
 	}
 	public void setNTargets(int nTargets){
 		this.nTargets = nTargets;
+	}
+
+
+	public void removeSprite(Sprite sprite) {
+		this.spriteArray.remove(sprite);
+		
 	}
 
 

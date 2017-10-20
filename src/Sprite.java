@@ -71,9 +71,8 @@ public abstract class Sprite {
         this.toRender = change;
     }
 
-	public void remove(World world) {
-		//get arraylist
-		//remove itself from arraylist
+	public void remove(World world, Sprite sprite) {
+		world.removeSprite(this);
 	}
 
 }
