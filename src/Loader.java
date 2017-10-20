@@ -20,7 +20,6 @@ public class Loader {
 	/**
 	 * Loads the sprites from a given file.
 	 * @param lvlAddress
-	 * @return
 	 * @throws SlickException
 	 * @throws FileNotFoundException
 	 */
@@ -92,8 +91,8 @@ public class Loader {
 	            }
 				else if(tileType.equals("wall")){
 					list.add((Sprite) (new Wall(tileType, position)));
-				// be kind, definitely player if not anything else
-				} else if (tileType.equals("player")){
+				}
+				else if (tileType.equals("player")){
 					list.add((Sprite) (new Player(tileType, position)));
 		        }
 		    }
