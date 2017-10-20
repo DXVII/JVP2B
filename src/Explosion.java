@@ -3,8 +3,8 @@ import org.newdawn.slick.Graphics;
 
 public class Explosion extends Sprite {
 
-    private double time = 0;
-    public static final double EXPIRATION = 400;
+    private float time = 0;
+    public static final float EXPIRATION = 400;
 
     public Explosion(String image_src, Position position) throws SlickException {
 		super(image_src, position);

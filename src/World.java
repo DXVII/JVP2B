@@ -31,7 +31,7 @@ public class World {
 
 	public World(String lvlAddress) throws FileNotFoundException, SlickException {
 		this.spriteArray = Loader.loadSprites(this,lvlAddress);
-		this.door = findDoor();
+		this.findDoor();
 	}
 
 
@@ -53,6 +53,9 @@ public class World {
 	// Next Level
 		else if(input.isKeyPressed(Input.KEY_N)){
 			App.nextLevel();
+		}
+		else if(input.isKeyPressed(Input.KEY_B)) {
+			App.prevLevel();
 		}
 
 
@@ -85,14 +88,13 @@ public class World {
 
 
 			// Check collision events
-
+				
 				//Player Death
-				System.out.println(currSpr);
-				if(currSpr instanceof Enemy &&
+				if(currPlayPos != null && currSpr instanceof Enemy &&
 				((currSpr.getPosition()).equals(this.currPlayPos)) ) {
 					App.reset();
 				}
-
+				
 				//Target Dynamics
 				if(currSpr instanceof Target){
 					//Target checks sprites at its position
@@ -124,11 +126,11 @@ public class World {
 						}
 
 					}// target loop
-					
-					
+
+
 				}// target conditions
-				
-				
+
+
 				// switch and door dynamics
 				if(currSpr instanceof Switch) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
@@ -145,11 +147,10 @@ public class World {
 				// block movement: ice, tnt, stone
 				if(currSpr instanceof Block) {
 					this.samePosSprites = getSpritesAt(currSpr.getPosition());
-						
+
 					for(Sprite checkSpr : this.samePosSprites) {
 						// collision only with rogue and player
 						if (checkSpr instanceof Player) {
-							System.out.println(currSpr.getDirection());
 							((Block) currSpr).move(this, checkSpr.getDirection());
 						}
 						else if (checkSpr instanceof Rogue) {
@@ -196,7 +197,8 @@ public class World {
 					//player movement easily access
 					currPlayPos = currSpr.getPosition();
 				}
-
+				
+				
 				//player observing enemy movement
 				if(this.playerMoved){
 					for(Sprite enemySpr : spriteArray) {
@@ -242,14 +244,12 @@ public class World {
 		this.spriteArray.add(new Explosion("explosion", position));
 	}
 
-	public Sprite findDoor(){
+	public void findDoor(){
 		for(Sprite spr : this.spriteArray){
 			if(spr instanceof Door){
-				return spr;
+				this.door = spr;
 			}
 		}
-		//check this again
-		return door;
 	}
 //////////////////////////////////////////////////////////////////////////////
 	public Position getPlayerPos(){
@@ -284,7 +284,7 @@ public class World {
 
 	public void removeSprite(Sprite sprite) {
 		this.spriteArray.remove(sprite);
-		
+
 	}
 
 

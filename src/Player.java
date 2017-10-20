@@ -19,7 +19,6 @@ public class Player extends Sprite{
 		ArrayList<Sprite> spritesAtPos = world.getSpritesAt(nextPos);
 		// checking all sprites in next position
 		for(Sprite currSpr : spritesAtPos){
-			System.out.println(currSpr.getClass().toString());
 			//if wall/door/cracked or if Block and block not pushable
 			if (currSpr.getRoadBlock() ||
 			(currSpr instanceof Block &&

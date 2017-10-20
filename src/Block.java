@@ -1,8 +1,5 @@
-
 import org.newdawn.slick.SlickException;
-
 import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 
 public abstract class Block extends Sprite {
@@ -29,7 +26,6 @@ public abstract class Block extends Sprite {
             //consider sprite removal//
             if(currSpr.getRoadBlock() ||
             (currSpr instanceof Block && !currSpr.getRoadBlock())) {
-            	System.out.println("block!!!");
                 return false;
             }
         }
@@ -39,7 +35,6 @@ public abstract class Block extends Sprite {
 
     public void move(World world, int direction){
     	this.setDirection(direction);
-    	System.out.println("Comapare" + direction +" "+ this.getDirection());
         Position nextPos = this.getPosition().nextPosition(direction);
         if(this.canBlockMove(world, direction)){
             this.setPosition(nextPos);

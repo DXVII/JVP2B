@@ -60,8 +60,13 @@ public class App extends BasicGame {
     public static void nextLevel() throws FileNotFoundException, SlickException{
         if(App.nLvl < App.MAX_LVL){
             App.nLvl += 1;
-        } else {
-            App.nLvl = 0;
+        }
+        App.reset();
+    }
+    
+    public static void prevLevel() throws FileNotFoundException, SlickException{
+        if(App.nLvl > 0){
+            App.nLvl -= 1;
         }
         App.reset();
     }

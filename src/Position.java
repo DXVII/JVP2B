@@ -10,7 +10,6 @@ public class Position {
     }
 
     public Position nextPosition(int direction){
-    	System.out.println("next dir: " + direction);
         int newX = this.getX();
         int newY = this.getY();
         if(direction == World.UP){
@@ -30,7 +29,7 @@ public class Position {
 
     public boolean equals(Position position){
         //equating integer x and y coordinates
-    	
+
         return ((this.x == position.getX()) && (this.y == position.getY()));
     }
 

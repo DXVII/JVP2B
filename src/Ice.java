@@ -3,8 +3,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 
 public class Ice extends Block {
-    private static final double TIME_LIMIT = 250;
-    private double time = 0;
+    private static final float TIME_LIMIT = 250;
+    private float time = 0;
     private boolean sliding = false;
     private int slideDir;
 

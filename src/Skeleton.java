@@ -1,12 +1,11 @@
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Graphics;
 
 public class Skeleton extends Enemy {
-    private double time = 0;
+    private float time = 0;
     private boolean upward = true;
-    private static double SKELE_TIME = 1000;
-    
+    private static float SKELE_TIME = 1000;
+
     public Skeleton(String image_src, Position position) throws SlickException {
 		super(image_src, position);
     }
@@ -28,7 +27,6 @@ public class Skeleton extends Enemy {
     }
 
     public void move(World world){
-
         // moving up
         if(this.upward){
             if(this.canEnemyMove(world, World.UP)){

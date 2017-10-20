@@ -26,8 +26,7 @@ public abstract class Enemy extends Sprite {
             //block and enemy have same behaviour move conditions
 			// except rogue
             if(currSpr.getRoadBlock() ||
-            (currSpr instanceof Block &&
-            (currSpr instanceof Tnt && !currSpr.getRoadBlock()) ) ) {
+            (currSpr instanceof Block)) {
                 return false;
             }
         }
